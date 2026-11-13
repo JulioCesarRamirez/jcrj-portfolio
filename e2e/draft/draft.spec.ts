@@ -1,8 +1,15 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-const SLUG = "rn-cart-cold-start"; // the only unpublished study
-const SLUGS = [SLUG, "ai-search-ui", "turbomodules-new-architecture"];
+const SLUG = "rn-cart-cold-start"; // an unpublished study
+const SLUGS = [
+  SLUG,
+  "ai-search-ui",
+  "turbomodules-new-architecture",
+  "sparknight",
+  "beek-native-player",
+  "cms-driven-angular",
+];
 
 test.describe("next dev renders drafts for review", () => {
   test("home shows the banner, drafts and TODO tiles", async ({ page }) => {
@@ -18,10 +25,12 @@ test.describe("next dev renders drafts for review", () => {
     ).toBeVisible();
   });
 
-  test("case-study list shows all three with Draft tags", async ({ page }) => {
+  test("case-study list shows every study, with Draft tags on unpublished ones", async ({
+    page,
+  }) => {
     await page.goto("/case-studies");
-    await expect(page.getByRole("article")).toHaveCount(3);
-    await expect(page.getByText("Draft", { exact: true })).toHaveCount(1);
+    await expect(page.getByRole("article")).toHaveCount(6);
+    await expect(page.getByText("Draft", { exact: true })).toHaveCount(4);
   });
 
   test("a draft case study renders in full with its anchor nav", async ({

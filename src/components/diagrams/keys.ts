@@ -6,6 +6,9 @@ export const DIAGRAM_KEYS = [
   "host-turbomodules",
   "dual-experience-sync",
   "render-profile",
+  "sparknight-aggregation",
+  "beek-native-player",
+  "cms-driven-angular",
 ] as const;
 
 export type DiagramKey = (typeof DIAGRAM_KEYS)[number];
@@ -14,6 +17,11 @@ export const DIAGRAM_LABELS: Record<DiagramKey, string> = {
   "host-turbomodules": "Host app composing modules over a typed native layer",
   "dual-experience-sync": "Two experiences kept in sync through shared state",
   "render-profile": "Cold-start commit timeline with no-op and heavy commits",
+  "sparknight-aggregation":
+    "App, GraphQL API, location-keyed cache and data providers",
+  "beek-native-player": "Shared React Native modules over native audio players",
+  "cms-driven-angular":
+    "Content manager driving an Angular app through a component API",
 };
 
 export function isDiagramKey(value: unknown): value is DiagramKey {

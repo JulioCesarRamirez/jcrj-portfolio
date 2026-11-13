@@ -13,8 +13,8 @@ currently:
   items:
     - title: "Senior Frontend Engineer, Best Buy"
       text: "Cart & Checkout, an AI search UI, React Native micro-app architecture"
-    - title: "Founder, SparkNight"
-      text: "AI date-planning app, built end to end, streaming from the Anthropic API"
+    - title: "CTO and co-founder, SparkNight"
+      text: "Pre-launch date-planning product, aggregating place and event data through a GraphQL API"
   tags:
     - "React"
     - "React Native"
@@ -75,7 +75,7 @@ sections:
   appsHeading: "Apps in people's hands"
   appsLink: "See all work →"
   workHeading: "Products I've shipped"
-  workIntro: "Web and mobile apps across retail, banking, travel and AI, from solo builds to teams I led."
+  workIntro: "Web and mobile apps across retail, banking, travel and consumer products, from co-founding a product to teams I led."
   readCaseStudyLabel: "Read the case study →"
   experienceHeading: "Experience"
   skillsHeading: "Skills"

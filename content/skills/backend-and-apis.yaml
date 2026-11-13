@@ -6,6 +6,7 @@ items:
   - "GraphQL"
   - "REST"
   - "PostgreSQL"
+  - "Redis"
   - "MongoDB"
   - "Ruby on Rails"
   - "Serverless functions"

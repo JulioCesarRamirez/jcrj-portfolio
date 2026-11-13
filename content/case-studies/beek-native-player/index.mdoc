@@ -1,0 +1,72 @@
+---
+title: "Beek: a native audio player inside a modular React Native app"
+summary: "A native audio player and a modular React Native codebase shared by separate iOS and Android host apps."
+lede: "A Y Combinator-backed audiobook app for Latin America. I worked on the native audio player and on splitting the React Native code into modules shared by separate iOS and Android host apps."
+category: "Mobile · Native"
+company: "Beek"
+facts:
+  - label: "Role"
+    value: "Full-stack engineer, part-time"
+  - label: "Dates"
+    value: "Mar 2023 – Jul 2024"
+  - label: "Stack"
+    value: "React Native · Kotlin · Swift · TurboModules · Expo · Fastlane · Ruby on Rails"
+outcomeValue: "2 hosts"
+outcomeLabel: "one set of shared feature modules"
+metrics:
+  - value: "Android + iOS"
+    label: "native audio player"
+    note: ""
+    highlight: true
+  - value: "Background"
+    label: "and lock-screen playback"
+    note: ""
+    highlight: false
+  - value: "2 host apps"
+    label: "one set of shared modules"
+    note: ""
+    highlight: false
+  - value: "Fastlane"
+    label: "Android releases automated"
+    note: ""
+    highlight: false
+diagram: "beek-native-player"
+published: false
+order: 4
+---
+
+## Context
+
+Beek was a Y Combinator-backed startup in Mexico City that brought bestselling English audiobooks to Spanish-speaking listeners in Latin America. Later, creators began uploading their own courses, and the product added listening recommendations. Beek eventually became Musa, which is still live.
+
+## Problem
+
+The core experience was an Audible- or Spotify-style player, and playback had to be reliable, including in the background and from the lock screen. That needed native code.
+
+## Decision
+
+I split React Native features into modules and integrated them through TurboModules into separate iOS and Android host apps, so shared features were written once.
+
+The trade-off: running two native host apps with a small team slowed down platform-specific work. The modular approach paid off most for shared features.
+
+## Architecture
+
+### The native player
+
+I worked mostly on Android (Kotlin), with some iOS (Swift). The module exposed play, pause, seek, background audio, lock-screen controls and offline downloads to React Native.
+
+### Modular React Native
+
+Feature modules sit behind a TurboModule interface, and each platform host app loads them.
+
+### Releases
+
+Fastlane automated Android builds and releases. iOS stayed manual through TestFlight, with hands-on testing before each release.
+
+### The hard moment
+
+Near the end, the product moved to a native wrapper hosting embedded HTML from a Ruby on Rails backend, built as micro-modules. I had little Rails experience and learned it on the job to deliver.
+
+## What I'd do differently
+
+Push earlier for reusing the code we already had, and ramp up on Rails faster.

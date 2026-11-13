@@ -1,7 +1,13 @@
 import { expect, test } from "@playwright/test";
 
 const PUBLISHED = ["turbomodules-new-architecture", "ai-search-ui"];
-const UNPUBLISHED = "rn-cart-cold-start";
+const UNPUBLISHED_SLUGS = [
+  "rn-cart-cold-start",
+  "sparknight",
+  "beek-native-player",
+  "cms-driven-angular",
+];
+const UNPUBLISHED = UNPUBLISHED_SLUGS[0];
 const PUBLIC_PATHS = [
   "/",
   "/work",
@@ -24,13 +30,13 @@ test.describe("production shows only finished content", () => {
     request,
     page,
   }) => {
-    expect((await request.get(`/case-studies/${UNPUBLISHED}`)).status()).toBe(
-      404,
-    );
+    for (const slug of UNPUBLISHED_SLUGS) {
+      expect((await request.get(`/case-studies/${slug}`)).status()).toBe(404);
+    }
 
     const sitemap = await (await request.get("/sitemap.xml")).text();
     expect(sitemap).not.toContain("TODO(julio)");
-    expect(sitemap).not.toContain(UNPUBLISHED);
+    for (const slug of UNPUBLISHED_SLUGS) expect(sitemap).not.toContain(slug);
     for (const slug of PUBLISHED) expect(sitemap).toContain(slug);
 
     await page.goto("/case-studies");

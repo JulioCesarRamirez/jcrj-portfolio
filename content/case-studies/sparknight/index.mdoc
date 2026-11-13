@@ -1,0 +1,84 @@
+---
+title: "SparkNight: date plans built from aggregated place and event data"
+summary: "A date-planning product for couples that turns free-tier place and event data into concrete plans, with a location-keyed cache that keeps it fast and within free tiers."
+lede: "Planning a good date takes time: finding places, checking what's on, and fitting it to a budget. SparkNight plans dates for couples, whether that's a long-term partner or someone new."
+category: "Architecture · Caching"
+company: "Own product"
+facts:
+  - label: "Role"
+    value: "CTO and co-founder"
+  - label: "Status"
+    value: "Pre-launch (sparknight.app)"
+  - label: "Stack"
+    value: "Next.js · TypeScript · GraphQL · Node.js · Redis · PostgreSQL · Vercel"
+  - label: "Data"
+    value: "Google Maps, Foursquare and Ticketmaster APIs"
+outcomeValue: "Weekly"
+outcomeLabel: "cache refresh keeps it within free tiers"
+metrics:
+  - value: "3"
+    label: "data providers, one normalized model"
+    note: ""
+    highlight: true
+  - value: "Weekly"
+    label: "refresh of a location-keyed cache"
+    note: ""
+    highlight: false
+  - value: "Free tier"
+    label: "friendly by design"
+    note: ""
+    highlight: false
+  - value: "Partner"
+    label: "linking and calendar invites"
+    note: ""
+    highlight: false
+diagram: "sparknight-aggregation"
+published: false
+order: 3
+---
+
+## Context
+
+The user enters their city, budget and the interests they share with their partner. SparkNight returns suggested date plans built from real stops, for example a walk in a park followed by dinner at a nearby restaurant. Partners can link accounts, add a plan to their calendars, or receive an invitation for a plan the other person made.
+
+SparkNight is pre-launch. I am its CTO and co-founder.
+
+## Problem
+
+Planning a good date takes time: finding places, checking what's on, and fitting it to a budget. The data to do it exists, but it is spread across several providers, each with its own shape, cost and rate limits.
+
+## Options considered
+
+{% table %}
+* Option
+* Trade-off
+---
+* Call the providers on every request
+* Simplest, but expensive, slow and quick to hit rate limits.
+---
+* Cache by location with a scheduled refresh (chosen)
+* More moving parts, but fast responses and a product that stays within free tiers.
+{% /table %}
+
+## Decision
+
+External APIs are the main cost and the main rate-limit risk. Results are cached by location in Redis, with PostgreSQL as the persistent store. A provider is called only when a new zip code or area is requested. The cache refreshes weekly, so events in the coming week or month stay current. This keeps the product within free tiers and keeps responses fast.
+
+## Architecture
+
+The Next.js frontend talks to a GraphQL API on Node.js. That service aggregates several free-tier place and event providers (Google Maps, Foursquare, Ticketmaster), normalizes their results and ranks them against the user's stated preferences.
+
+## Results
+
+Pre-launch, so no usage numbers. What exists today is a working aggregation pipeline: three providers behind one normalized model, a location-keyed cache with a weekly refresh, partner linking, and calendar invites.
+
+## What's still hard
+
+Combining several providers produces messy data. Some suggestions repeat, and personalization per user and location isn't strong enough yet. That data-quality work is the current priority.
+
+## What I'd do differently, and what's next
+
+- Cleaner deduplication, and more consistent ordering and presentation.
+- Extras that make a plan feel thoughtful, like flowers, a card or a personalized invitation.
+- Email and SMS invitations.
+- An AI layer on top of the aggregated data is planned for a later phase.

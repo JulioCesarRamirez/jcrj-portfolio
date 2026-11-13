@@ -1,20 +1,21 @@
 name: "SparkNight"
 type: "web"
 org: "Own product"
-role: "Founder and engineer"
+role: "CTO and co-founder"
 years: "2024 – Present"
-summary: "AI date-planning app built end to end, generating personalized date plans in real time."
+summary: "Pre-launch date-planning product for couples. Turns aggregated place and event data into concrete plans, with a location-keyed cache that keeps it fast and within free tiers."
 stack:
   - "Next.js"
-  - "React"
   - "TypeScript"
-  - "Tailwind CSS"
+  - "GraphQL"
   - "Node.js"
-  - "Anthropic API"
+  - "Redis"
+  - "PostgreSQL"
+  - "Vercel"
 links:
   - label: "Live site"
-    url: "https://project-25sig.vercel.app"
-caseStudy: null
+    url: "https://sparknight.app"
+caseStudy: "sparknight"
 screenshots: []
 featured: true
 order: 0
