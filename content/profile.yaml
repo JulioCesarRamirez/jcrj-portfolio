@@ -53,7 +53,7 @@ proofPoints:
     highlight: false
   - value: "Days → hours"
     label: "bug resolution with an AI workflow I designed"
-    note: "TODO(julio): confirm OK to publish"
+    note: ""
     highlight: true
 shippedAtLabel: "Shipped at"
 shippedAt:

@@ -1,8 +1,8 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-const SLUG = "turbomodules-new-architecture";
-const SLUGS = [SLUG, "ai-search-ui", "rn-cart-cold-start"];
+const SLUG = "rn-cart-cold-start"; // the only unpublished study
+const SLUGS = [SLUG, "ai-search-ui", "turbomodules-new-architecture"];
 
 test.describe("next dev renders drafts for review", () => {
   test("home shows the banner, drafts and TODO tiles", async ({ page }) => {
@@ -21,7 +21,7 @@ test.describe("next dev renders drafts for review", () => {
   test("case-study list shows all three with Draft tags", async ({ page }) => {
     await page.goto("/case-studies");
     await expect(page.getByRole("article")).toHaveCount(3);
-    await expect(page.getByText("Draft", { exact: true })).toHaveCount(3);
+    await expect(page.getByText("Draft", { exact: true })).toHaveCount(1);
   });
 
   test("a draft case study renders in full with its anchor nav", async ({
@@ -40,6 +40,12 @@ test.describe("next dev renders drafts for review", () => {
 
   test("TODO(julio) text is highlighted", async ({ page }) => {
     await page.goto(`/case-studies/${SLUG}`);
+    // No content carries a TODO right now, so add one the way a draft would.
+    await page.evaluate(() => {
+      const p = document.createElement("p");
+      p.textContent = "TODO(julio): sample placeholder";
+      document.body.append(p);
+    });
     await expect
       .poll(() => page.evaluate(() => CSS.highlights.get("todo")?.size ?? 0))
       .toBeGreaterThan(0);

@@ -10,8 +10,8 @@ highlights:
   - "Primary frontend engineer on a prompt-driven AI search UI that ran alongside the classic product list, across mobile web, desktop and a shared controller library."
   - "Runs thorough PR reviews, pushes for refactors when code starts fighting the team, treats performance as first-class. CI/CD on GitHub Actions and AWS."
   - "Timeout and fallback handling kept checkout up when a downstream recommendations service degraded."
-  - "Helped refactor a cart hook on the cold-start performance effort: added and removed memoization (useMemo, memo) and replaced effects with refs."
-  - "Designed an AI-assisted dev workflow connecting 5 repos (shared architecture rules, Jira and GitHub context): routine bug resolution went from days to hours. TODO(julio): confirm OK to publish"
+  - "Helped refactor a cart hook with dozens of dependencies on the cold-start performance effort: added and removed memoization (useMemo, memo) and replaced effects with refs."
+  - "Designed an AI-assisted dev workflow connecting 5 repos (shared architecture rules, Jira and GitHub context). Routine bug resolution: 1–2 days → ~2 hours, mostly by removing the context-gathering across repos and tickets."
 stack:
   - "React"
   - "TypeScript"

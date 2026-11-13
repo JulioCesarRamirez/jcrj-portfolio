@@ -1,82 +1,70 @@
 import { expect, test } from "@playwright/test";
 
-const PUBLIC_PATHS = ["/", "/work", "/about", "/how-this-site-is-built"];
-const DRAFT_SLUGS = [
-  "turbomodules-new-architecture",
-  "ai-search-ui",
-  "rn-cart-cold-start",
+const PUBLISHED = ["turbomodules-new-architecture", "ai-search-ui"];
+const UNPUBLISHED = "rn-cart-cold-start";
+const PUBLIC_PATHS = [
+  "/",
+  "/work",
+  "/about",
+  "/how-this-site-is-built",
+  "/case-studies",
+  ...PUBLISHED.map((slug) => `/case-studies/${slug}`),
 ];
 
-test.describe("production hides unfinished content", () => {
+test.describe("production shows only finished content", () => {
   for (const path of PUBLIC_PATHS) {
     test(`${path} has no TODO(julio) and no draft banner`, async ({ page }) => {
       await page.goto(path);
-      const html = await page.content();
-      expect(html).not.toContain("TODO(julio)");
+      expect(await page.content()).not.toContain("TODO(julio)");
       await expect(page.getByText("Draft preview")).toHaveCount(0);
     });
   }
 
-  test("sitemap and robots have no TODO and no case studies", async ({
+  test("an unpublished case study 404s and stays out of the sitemap", async ({
     request,
+    page,
   }) => {
+    expect((await request.get(`/case-studies/${UNPUBLISHED}`)).status()).toBe(
+      404,
+    );
+
     const sitemap = await (await request.get("/sitemap.xml")).text();
     expect(sitemap).not.toContain("TODO(julio)");
-    expect(sitemap).not.toContain("case-studies");
-    expect(sitemap).toContain("/how-this-site-is-built");
-    const robots = await request.get("/robots.txt");
-    expect(await robots.text()).toContain("Disallow: /keystatic");
+    expect(sitemap).not.toContain(UNPUBLISHED);
+    for (const slug of PUBLISHED) expect(sitemap).toContain(slug);
+
+    await page.goto("/case-studies");
+    await expect(page.getByRole("article")).toHaveCount(PUBLISHED.length);
+    await expect(page.getByText("Draft", { exact: true })).toHaveCount(0);
   });
 
-  test("unpublished case studies 404, and so does the empty list", async ({
-    request,
-  }) => {
-    expect((await request.get("/case-studies")).status()).toBe(404);
-    for (const slug of DRAFT_SLUGS) {
-      expect((await request.get(`/case-studies/${slug}`)).status()).toBe(404);
-    }
-  });
-
-  test("home hides the case-study section, its nav link and its CTA", async ({
-    page,
-  }) => {
+  test("home links to the published case studies only", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("link", { name: "Case studies" })).toHaveCount(
-      0,
-    );
     await expect(
-      page.getByRole("link", { name: "Read the case studies" }),
-    ).toHaveCount(0);
-    await expect(page.locator("#featured-case-studies")).toHaveCount(0);
-    await expect(
-      page.getByRole("link", { name: "Work", exact: true }),
+      page.getByRole("link", { name: "Case studies" }),
     ).toBeVisible();
+    await expect(page.locator("#featured-case-studies")).toBeVisible();
+    await expect(
+      page.locator(`a[href="/case-studies/${UNPUBLISHED}"]`),
+    ).toHaveCount(0);
   });
 
-  test("the proof strip drops tiles with unconfirmed numbers", async ({
-    page,
-  }) => {
-    await page.goto("/");
-    const tiles = page
-      .getByRole("region", { name: "Proof" })
-      .getByRole("listitem");
-    await expect(tiles).toHaveCount(3);
-    await expect(page.getByText("Days")).toHaveCount(0);
+  test("robots disallow the admin", async ({ request }) => {
+    expect(await (await request.get("/robots.txt")).text()).toContain(
+      "Disallow: /keystatic",
+    );
   });
 
-  test("experience hides highlights with unconfirmed claims", async ({
+  test("a published case study renders with its anchor nav", async ({
     page,
   }) => {
-    await page.goto("/about");
-    await expect(page.getByText("Cart & Checkout").first()).toBeVisible();
-    await expect(page.getByText("about 20%")).toHaveCount(0);
-    await expect(page.getByText("days to hours")).toHaveCount(0);
-  });
-
-  test("work cards never link to an unpublished case study", async ({
-    page,
-  }) => {
-    await page.goto("/work");
-    await expect(page.locator('a[href^="/case-studies"]')).toHaveCount(0);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(`/case-studies/${PUBLISHED[0]}`);
+    await expect(
+      page.getByRole("heading", { level: 2, name: "Context" }),
+    ).toBeVisible();
+    const nav = page.getByRole("navigation", { name: "On this page" });
+    await nav.getByRole("link", { name: "Decision" }).click();
+    await expect(page).toHaveURL(/#decision$/);
   });
 });
