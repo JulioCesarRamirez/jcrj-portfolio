@@ -85,12 +85,6 @@ All native access goes through one shared, typed TurboModule layer over JSI. Tea
 - **Tests.** Updated Jest suites and shared mocks to stub synchronous JSI methods instead of the old async module mocks.
 - Worked with the platform team to validate feature parity, startup performance and the payment and device integrations.
 
-### The hard moment: synchronous run-loop stalls on first render
-
-TODO(julio): confirm whether you worked on this one.
-
-With synchronous TurboModules, some native methods ran on the JS thread during startup. If a native call waited on an OS callback (notification settings, device readiness) by spinning the run loop, it could freeze the JS thread for several seconds on quiet launches. Finding the blocking JSI call took trace analysis across Xcode Instruments, the Hermes sampling profiler and native logs. The fix used native semaphores and non-blocking async event delegation.
-
 ## Results
 
 Qualitative only; no internal measurements.

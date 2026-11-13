@@ -1,7 +1,7 @@
 ---
 title: "Finding the real cost of a React Native cart's cold start"
 summary: "A few unmemoized components and one hook with dozens of dependencies drove cold-start render time, and development builds were hiding it."
-lede: "Profiling the cart's cold start in a React Native app showed most render time came from a few unmemoized components and one hook with 39 dependencies. Development builds were hiding the problem."
+lede: "Profiling the cart's cold start in a React Native app showed most render time came from a few unmemoized components and one hook with dozens of dependencies. Development builds were hiding the problem."
 category: "Performance"
 company: "Best Buy"
 facts:
@@ -13,21 +13,21 @@ facts:
     value: "A critical surface in a large React Native shopping app"
   - label: "Stack"
     value: "React Native · React DevTools Profiler · React Compiler · memoization · Jest"
-outcomeValue: "39 → 14"
-outcomeLabel: "hook dependencies, now isolated derivations"
+outcomeValue: "Dev ≠ prod"
+outcomeLabel: "the parity trap that hid the real renders"
 metrics:
   - value: "39 → 14"
     label: "hook dependencies, now isolated derivations"
-    note: ""
-    highlight: true
+    note: "TODO(julio): confirm"
+    highlight: false
   - value: "41"
     label: "unit tests around the refactor"
-    note: ""
+    note: "TODO(julio): confirm"
     highlight: false
   - value: "Parity"
     label: "dev versus production trap found"
     note: ""
-    highlight: false
+    highlight: true
   - value: "Isolated"
     label: "partner work off the critical path"
     note: ""
@@ -91,13 +91,12 @@ Local profiling ran under experimental compiler settings that auto-memoized comp
 
 ### My work
 
-- Decomposed the monolithic cart-sections hook: 39 raw dependencies became 14 isolated derivations, without breaking the downstream line-item, discount and checkout CTA integrations, and backed by 41 unit tests. TODO(julio): confirm
-- TODO(julio): say which of these you did: inline functions removed from the cart list, memoization of the line-item and discount components.
+- Helped refactor the cart-sections hook: added and removed memoization (`useMemo`, `memo`) where the profile showed churn, and replaced effects with refs.
+- TODO(julio): confirm the dependency count before and after (39 to 14) and whether you wrote the 41 unit tests, or whether those figures came from the ticket summary.
 
 ## Results
 
-- 39 dependencies became 14 isolated derivations, with 41 unit tests (my code).
-- TODO(julio): what you observed after the change, for example "far fewer re-renders in the profiler". Qualitative only.
+- Fewer unstable dependencies feeding the cart list, so far less downstream re-rendering. TODO(julio): say in plain words what you saw in the profiler afterwards.
 
 ## What I'd do differently
 
