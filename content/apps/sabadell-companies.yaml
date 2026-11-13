@@ -1,0 +1,17 @@
+name: "Sabadell Companies"
+type: "mobile"
+org: "GFT · Banco Sabadell"
+role: "Full-stack engineer & tech lead"
+years: "2018 – 2019"
+summary: "Business banking app. Bank APIs via Node.js, deployed with Kubernetes and Jenkins."
+stack:
+  - "Angular"
+  - "Ionic"
+  - "Node.js"
+  - "Kubernetes"
+  - "Jenkins"
+links: []
+caseStudy: null
+screenshots: []
+featured: true
+order: 3

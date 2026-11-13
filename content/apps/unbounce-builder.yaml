@@ -1,0 +1,16 @@
+name: "Unbounce builder"
+type: "web"
+org: "Encora · Unbounce"
+role: "Senior frontend engineer"
+years: "2021 – 2022"
+summary: "Landing-page builder used by tens of thousands of marketers, where editor performance affects customer revenue."
+stack:
+  - "React"
+  - "TypeScript"
+  - "Node.js"
+  - "Tailwind CSS"
+links: []
+caseStudy: null
+screenshots: []
+featured: false
+order: 10

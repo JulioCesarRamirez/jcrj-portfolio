@@ -1,0 +1,16 @@
+name: "Learning Planet"
+type: "web"
+org: "Geekbears"
+role: "Frontend engineer"
+years: "2017 – 2018"
+summary: "International education platform."
+stack:
+  - "Angular"
+  - "AWS S3"
+  - "PM2"
+  - "Nginx"
+links: []
+caseStudy: null
+screenshots: []
+featured: false
+order: 9

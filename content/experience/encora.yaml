@@ -1,0 +1,21 @@
+company: "Encora (embedded in the Unbounce product team)"
+title: "Senior Frontend Engineer"
+location: ""
+start: "Jun 2021"
+end: "Oct 2022"
+summary: "Landing-page builder used by tens of thousands of marketers, where editor performance affects customer revenue."
+highlights:
+  - "Reusable component library."
+  - "Sentry error and performance tracking."
+  - "Lerna monorepo package decoupling."
+  - "SonarQube vulnerability remediation and Webpack optimization."
+stack:
+  - "React"
+  - "TypeScript"
+  - "Node.js"
+  - "Tailwind CSS"
+  - "Sentry"
+  - "Lerna"
+  - "SonarQube"
+  - "Webpack"
+order: 4

@@ -1,0 +1,15 @@
+name: "Data Scholar"
+type: "web"
+org: "Geekbears"
+role: "Frontend engineer"
+years: "2017 – 2018"
+summary: "Educational app for US school districts."
+stack:
+  - "Angular"
+  - "Jenkins"
+  - "AWS S3"
+links: []
+caseStudy: null
+screenshots: []
+featured: false
+order: 8

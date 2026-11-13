@@ -1,0 +1,7 @@
+group: "Practices"
+order: 6
+items:
+  - "Feature flags"
+  - "A/B testing"
+  - "Micro-frontends"
+  - "Agile/Scrum"

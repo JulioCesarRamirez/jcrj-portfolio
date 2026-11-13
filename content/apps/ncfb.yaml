@@ -1,0 +1,16 @@
+name: "NCFB"
+type: "web"
+org: "Globant"
+role: "Senior full-stack engineer & tech lead"
+years: "2019 – 2021"
+summary: "Angular app with a Node.js API, monitored with Datadog and Sentry."
+stack:
+  - "Angular"
+  - "Node.js"
+  - "Jest"
+  - "Cypress"
+links: []
+caseStudy: null
+screenshots: []
+featured: false
+order: 7

@@ -1,0 +1,55 @@
+---
+title: "How this site is built"
+intro: "A portfolio is a frontend sample, so the site itself has to hold up. Here is the stack, the trade-offs, and the real numbers, including the one target it does not meet."
+---
+
+## Stack
+
+Next.js (App Router) with every public page prerendered at build time, TypeScript in strict mode, and Tailwind CSS. There is no UI kit and no CSS-in-JS. Geist and Geist Mono are loaded through `next/font`. Light and dark themes are CSS variables that follow `prefers-color-scheme`, with a header toggle that overrides and persists the choice.
+
+## Content
+
+Every word on the site lives in Keystatic, not in components. Entries are files in the repo, so each save is a commit and triggers a rebuild. Adding, editing or removing an entry never needs a code change.
+
+Unfinished work is kept out of production on purpose. In `next dev` everything renders, with a visible draft banner and highlighted placeholders. In a production build, unpublished case studies and any text marked as unconfirmed are removed, and CI fails if a published case study still contains a placeholder.
+
+## Performance, with the real numbers
+
+First-load JavaScript on the home page is **136 KB gzip**. That is above the 100 KB I first aimed for, and it is not mine to cut: React 19 and the Next.js App Router client runtime are about 115 KB of it. A bare `create-next-app` page measures about 138 KB on this version, so this site adds less than 10 KB of its own code.
+
+I looked for savings before accepting that. Keystatic code does not reach public routes, icons are inline SVG, and the theme toggle is a server-rendered button handled by a small inline script, so it ships no React bundle. Getting under 100 KB would mean leaving the App Router, which I chose not to do. CI guards the number so it can only go down.
+
+Lighthouse, mobile profile, median of three runs on the production build:
+
+{% table %}
+* Measure
+* Result
+---
+* Performance
+* 98
+---
+* Accessibility
+* 98 to 100
+---
+* Best practices
+* 100
+---
+* SEO
+* 100
+---
+* Largest contentful paint
+* about 2.3 s (budget 2.5 s)
+---
+* Cumulative layout shift
+* 0
+{% /table %}
+
+Those are lab numbers from a throttled run, not field data.
+
+## Accessibility and testing
+
+Every public page is checked with axe in both themes, against WCAG 2.0 and 2.1 level A and AA. Tests also cover keyboard access, visible focus, the theme toggle, the work filter, and what production hides. Unit tests with React Testing Library sit next to the components they cover.
+
+## What I would change
+
+The home page is static, so the JavaScript it ships is almost entirely framework. If that number mattered more than the App Router's conventions, I would serve the public pages without a client runtime and keep Keystatic on its own routes. For a portfolio I preferred to keep the architecture I would use on a team.

@@ -1,0 +1,15 @@
+name: "Sabadell Persons"
+type: "mobile"
+org: "GFT · Banco Sabadell"
+role: "Full-stack engineer & tech lead"
+years: "2018 – 2019"
+summary: "Hybrid personal banking app. App Store and Google Play."
+stack:
+  - "Angular"
+  - "Ionic"
+  - "Node.js"
+links: []
+caseStudy: null
+screenshots: []
+featured: false
+order: 4

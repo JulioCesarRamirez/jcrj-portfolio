@@ -1,0 +1,7 @@
+group: "State"
+order: 2
+items:
+  - "Zustand"
+  - "Redux"
+  - "Context API"
+  - "Apollo"

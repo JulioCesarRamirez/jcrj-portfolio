@@ -1,0 +1,105 @@
+---
+title: "Moving checkout's native calls onto the New Architecture"
+summary: "Migrating checkout's native calls from the legacy bridge to typed TurboModules, in an app built by many feature teams."
+lede: "A large shopping app built by many feature teams upgraded to React Native's New Architecture. I migrated our team's native calls (Apple Pay readiness, device capabilities, cart data) from the legacy bridge to typed TurboModules, so cart and checkout didn't crash or stall in bridgeless mode."
+category: "Architecture · Performance"
+company: "Best Buy"
+facts:
+  - label: "Role"
+    value: "React Native and feature-domain frontend engineer on the cart and checkout team"
+  - label: "Company"
+    value: "Best Buy (contract)"
+  - label: "Stack"
+    value: "React Native 0.77 to 0.83 · New Architecture (Fabric, TurboModules, JSI, bridgeless) · TypeScript · Jest"
+outcomeValue: "Bridge → JSI"
+outcomeLabel: "synchronous native calls"
+metrics:
+  - value: "Bridge → JSI"
+    label: "synchronous native calls"
+    note: ""
+    highlight: true
+  - value: "Typed"
+    label: "native contracts, codegen-backed"
+    note: ""
+    highlight: false
+  - value: "iOS + Android"
+    label: "null-safe platform modules"
+    note: ""
+    highlight: false
+  - value: "Jest"
+    label: "mocks rebuilt for synchronous JSI"
+    note: ""
+    highlight: false
+diagram: "host-turbomodules"
+published: false
+order: 0
+---
+
+## Context
+
+One React Native host app with many feature teams shipping into it. Upgrading from 0.77 to 0.83 made the New Architecture the default runtime and deprecated the compatibility layer that let old native modules keep working.
+
+### My role
+
+The platform team built the codegen plumbing and the shared TurboModule package. Feature engineers had to make sure our critical paths (cart, checkout, Apple Pay, navigation) didn't crash or stall in bridgeless mode. That was my job, on the cart and checkout team.
+
+## Problem
+
+- Every native check (Apple Pay readiness, device constants, deep links, biometrics) went through the asynchronous JSON bridge and queued behind JS work, which made startup sluggish.
+- With the compatibility layer deprecated, unmigrated legacy modules would freeze or pay heavy latency.
+- With many teams pushing into one app, unmigrated bridges risked build breaks, runtime `undefined` crashes and thread-locking during boot.
+
+## Options considered
+
+{% table %}
+* Option
+* Trade-off
+---
+* Rely on the compatibility layer
+* Leave modules on the legacy API and let React Native translate the calls. Rejected: profiling showed it still added bridge-translation overhead, and 0.83 removed safe interop support.
+---
+* Decentralized bridges
+* Each team keeps its own TurboModule specs and native packages. Risk: a patchwork of contracts.
+---
+* Centralized, spec-first (chosen)
+* Every TurboModule spec lives in one shared package, codegen runs at build time, and every team migrates off the legacy API by a release deadline. Risk: a central package could become a PR bottleneck.
+{% /table %}
+
+### The debate
+
+- **Interop versus full migration.** Feature teams wanted to keep the compatibility layer to avoid refactoring before peak season.
+- **Ownership.** Would a central package become a PR bottleneck?
+
+## Decision
+
+The organization standardized on the centralized, spec-first option, with a deadline for every team to migrate.
+
+## Architecture
+
+All native access goes through one shared, typed TurboModule layer over JSI. Team-owned feature modules call it instead of importing native modules directly.
+
+### My work
+
+- **Call-site migration.** Replaced direct legacy native-module imports across our feature code with typed, codegen-backed exports from the shared TurboModule package.
+- **Null safety on both platforms.** Resolved TurboModules that exist on only one platform (Apple Pay, app groups) with safe lookups and explicit fallbacks, instead of enforcing lookups that crash, to pass strict TypeScript checks.
+- **Tests.** Updated Jest suites and shared mocks to stub synchronous JSI methods instead of the old async module mocks.
+- Worked with the platform team to validate feature parity, startup performance and the payment and device integrations.
+
+### The hard moment: synchronous run-loop stalls on first render
+
+TODO(julio): confirm whether you worked on this one.
+
+With synchronous TurboModules, some native methods ran on the JS thread during startup. If a native call waited on an OS callback (notification settings, device readiness) by spinning the run loop, it could freeze the JS thread for several seconds on quiet launches. Finding the blocking JSI call took trace analysis across Xcode Instruments, the Hermes sampling profiler and native logs. The fix used native semaphores and non-blocking async event delegation.
+
+## Results
+
+Qualitative only; no internal measurements.
+
+- Startup native calls moved from asynchronous bridge round-trips to direct synchronous JSI calls.
+- Noticeably faster first paint on key screens after the upgrade.
+- Our feature code moved entirely onto typed, codegen-backed modules, so the compiler catches platform-only module issues.
+
+## What I'd do differently
+
+- **Decouple native compilation from JS spec changes.** One TypeScript spec change triggered full native rebuilds (pod install, CMake, Gradle codegen). Isolated module boundaries or lightweight mock harnesses would have saved hours of local build time.
+- **Lint for the contract in CI from day one.** Many PRs were blocked by legacy native-module imports added from habit, or by missing fallbacks for platform-only modules. An ESLint rule banning the legacy import and enforcing the shared package would have prevented repeated review cycles and broken ad hoc builds.

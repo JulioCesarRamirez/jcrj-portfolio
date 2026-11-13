@@ -1,0 +1,17 @@
+name: "American Express Travel"
+type: "web"
+org: "Globant"
+role: "Senior full-stack engineer & tech lead"
+years: "2019 – 2021"
+summary: "React and Redux over a Node.js layer integrating the Expedia API. Jenkins CI/CD and Docker."
+stack:
+  - "React"
+  - "Redux"
+  - "Node.js"
+  - "RxJS"
+  - "Docker"
+links: []
+caseStudy: null
+screenshots: []
+featured: false
+order: 6

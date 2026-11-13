@@ -1,0 +1,10 @@
+group: "Cloud and DevOps"
+order: 4
+items:
+  - "AWS (Lambda, S3, CloudFront)"
+  - "GCP"
+  - "Azure"
+  - "Docker"
+  - "GitHub Actions"
+  - "Jenkins"
+  - "Vercel"

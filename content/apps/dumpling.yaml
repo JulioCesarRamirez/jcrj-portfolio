@@ -1,0 +1,14 @@
+name: "Dumpling"
+type: "mobile"
+org: "Geekbears"
+role: "Frontend engineer"
+years: "2017 – 2018"
+summary: "San Francisco grocery-delivery app: React web and React Native. App Store and Google Play."
+stack:
+  - "React"
+  - "React Native"
+links: []
+caseStudy: null
+screenshots: []
+featured: true
+order: 5

@@ -1,0 +1,17 @@
+company: "Geekbears"
+title: "Frontend Engineer"
+location: "Bay Area product studio"
+start: "Aug 2017"
+end: "Sep 2018"
+summary: "Multiple startup clients."
+highlights:
+  - "Dumpling: San Francisco grocery-delivery app, React web and React Native, App Store and Google Play."
+  - "Data Scholar: educational app for US school districts (Angular, Jenkins, AWS S3)."
+  - "Learning Planet: international education platform (Angular, AWS S3, PM2, Nginx)."
+stack:
+  - "React"
+  - "React Native"
+  - "Angular"
+  - "AWS S3"
+  - "Jenkins"
+order: 7

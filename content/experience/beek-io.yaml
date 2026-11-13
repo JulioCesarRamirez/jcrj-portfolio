@@ -1,0 +1,20 @@
+company: "Beek.io"
+title: "Full-Stack Engineer (part-time, remote)"
+location: ""
+start: "Mar 2023"
+end: "Jul 2024"
+summary: "Part-time alongside Best Buy, on a small distributed team."
+highlights:
+  - "React Native on Expo with TurboModules (JSI) written in Swift and Kotlin."
+  - "Push notifications on iOS and Android; Fastlane releases."
+  - "Ruby on Rails REST APIs and API integrations."
+  - "Split the app into modules composed into a host app."
+stack:
+  - "React Native"
+  - "Expo"
+  - "TurboModules (JSI)"
+  - "Swift"
+  - "Kotlin"
+  - "Fastlane"
+  - "Ruby on Rails"
+order: 2

@@ -1,0 +1,7 @@
+group: "AI"
+order: 7
+items:
+  - "Anthropic API"
+  - "LLM streaming"
+  - "Prompt engineering"
+  - "AI-assisted development (Claude, Copilot)"

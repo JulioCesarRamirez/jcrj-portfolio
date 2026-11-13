@@ -1,0 +1,12 @@
+group: "Testing and quality"
+order: 5
+items:
+  - "Jest"
+  - "Vitest"
+  - "React Testing Library"
+  - "Cypress"
+  - "Playwright"
+  - "Web Vitals"
+  - "SonarQube"
+  - "Sentry"
+  - "Datadog"

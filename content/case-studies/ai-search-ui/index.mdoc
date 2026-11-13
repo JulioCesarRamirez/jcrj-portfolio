@@ -1,0 +1,96 @@
+---
+title: "Building a prompt-driven AI search UI that runs alongside the classic one"
+summary: "Two search experiences kept in sync while both were live, on mobile web, desktop and a shared controller library."
+lede: "Best Buy layered an AI-backed, prompt-driven discovery experience onto its product list. I built the client side for mobile web and desktop, and kept two search experiences in sync while both were live."
+category: "Architecture · AI"
+company: "Best Buy"
+facts:
+  - label: "Role"
+    value: "Primary frontend engineer, product-list web squad (mobile web and desktop, plus the shared controller library)"
+  - label: "Company"
+    value: "Best Buy (contract)"
+  - label: "Stack"
+    value: "React · TypeScript · GraphQL · feature flags and A/B testing · ARIA"
+outcomeValue: "8 → 1"
+outcomeLabel: "analytics parameters, now one typed options object"
+metrics:
+  - value: "2"
+    label: "search experiences kept in sync"
+    note: ""
+    highlight: false
+  - value: "9+"
+    label: "filter categories in one mobile drawer"
+    note: ""
+    highlight: false
+  - value: "8 → 1"
+    label: "analytics parameters, now a typed options object"
+    note: ""
+    highlight: true
+  - value: "Accessible"
+    label: "keyboard, focus and live regions"
+    note: ""
+    highlight: false
+diagram: "dual-experience-sync"
+published: false
+order: 1
+---
+
+## Context
+
+The product list was moving from keyword matching and static facet trees to an AI-backed semantic layer. Instead of fixed filters, the page had to render conversational prompt panels, quick-prompt chips and numeric range pills, all driven by an AI ranking service.
+
+### My role
+
+- Built the foundational mobile web UI: the AI filter drawer (multi-accordion, 9+ categories, single-accordion expansion, responsive height bounds) and the header control that turns AI search on or off, explains it, and opens feedback and legal modals.
+- Configured A/B test routing for the MVP rollout.
+- Implemented state, URL routing and data integration for prompts, the "More like this" journey (deep navigation that preserves scroll position and handles zero results) and error states across mobile and desktop.
+- Accessibility: keyboard navigation, focus trapping and ARIA live announcements across filters and compare trays.
+- Led a technical-health refactor of the shared analytics API (see Decision).
+
+## Problem
+
+- **Two experiences at once.** Classic and AI search ran concurrently. Users could toggle AI search on and off, share links, navigate back and forth, or open a classic URL with AI search enabled. URL parameters, the GraphQL query ID, prompt selections and product results had to stay in sync with no race conditions or broken grids.
+- **Mobile constraints.** Multi-level accordions, dynamic prompt heights and live loaders inside a mobile filter drawer, without hurting scroll performance or overlapping the UI.
+
+## Options considered
+
+{% table %}
+* Question
+* Options
+* Outcome
+---
+* Classic URLs opened in AI mode
+* A: translate legacy facet, sort and pagination parameters into AI prompt IDs. B: strip legacy filter parameters and run a clean search on the raw term with a new AI query ID.
+* B. The team chose it to avoid query desync and corrupted facet loops. I implemented the state handoff.
+---
+* Analytics API
+* A: keep appending positional parameters to tracking functions as new AI properties arrived. B: refactor the core helpers to typed options objects.
+* B. I identified the problem and drove the change.
+{% /table %}
+
+## Decision
+
+I refactored the shared analytics helpers from 8 positional parameters (callers passing `undefined` placeholders) to a typed options-object pattern across the shared controller library, without breaking tracking on any web or mobile consumer.
+
+## Architecture
+
+Four things had to agree at all times: the URL parameters, the GraphQL query ID, the prompt selections and the product grid. The work was tracing every handoff between the sync layer, the URL query parameters and the unified filter store, and handling the edge cases: no exact matches, no results after deselecting a prompt, and a missing prompt response.
+
+### The hard moment: non-contiguous numeric prompts
+
+Selecting the lowest and highest price tiers made the backend merge the selection while the client collapsed it into an unapplied "Show all prices" pill, so the URL, the drawer checkboxes and the product grid fell out of sync. Fixing it meant tracing the state handoffs so that non-contiguous multi-selections matched the filtered inventory.
+
+### Epilogue
+
+The business later sunset AI search in favor of unified search. Because the AI branching lived inside shared controllers and views, removing it took a long cleanup effort across web and app. That shaped both lessons below.
+
+## Results
+
+- A count display that tells exact catalog matches apart from capped AI result sets ("100 of many"). TODO(julio): confirm
+- Analytics helpers moved from 8 positional parameters to one typed options object.
+- Edge cases handled: no exact matches, no results after deselecting a prompt, missing prompt response.
+
+## What I'd do differently
+
+- **Contract-first validation for AI endpoints.** Prompt titles rendered with empty data, and prompts vanished on error responses. Runtime schema validation (e.g. Zod) or contract tests early on would have prevented unexpected UI states.
+- **Build large experiments as isolated, pluggable layers.** Keeping experimental branching out of core shared views would have made toggling and decommissioning cheap.

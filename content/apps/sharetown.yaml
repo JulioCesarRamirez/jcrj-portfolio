@@ -1,0 +1,17 @@
+name: "ShareTown"
+type: "mobile"
+org: "Globant"
+role: "Senior full-stack engineer & tech lead"
+years: "2019 – 2021"
+summary: "Hybrid Angular and React app plus a React Native mobile app with custom Kotlin and Swift plugins. App Store and Google Play."
+stack:
+  - "Angular"
+  - "React"
+  - "React Native"
+  - "Kotlin"
+  - "Swift"
+links: []
+caseStudy: null
+screenshots: []
+featured: true
+order: 2

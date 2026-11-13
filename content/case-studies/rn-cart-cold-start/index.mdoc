@@ -1,0 +1,106 @@
+---
+title: "Finding the real cost of a React Native cart's cold start"
+summary: "A few unmemoized components and one hook with dozens of dependencies drove cold-start render time, and development builds were hiding it."
+lede: "Profiling the cart's cold start in a React Native app showed most render time came from a few unmemoized components and one hook with 39 dependencies. Development builds were hiding the problem."
+category: "Performance"
+company: "Best Buy"
+facts:
+  - label: "Role"
+    value: "Frontend and React Native performance engineer on the cart and checkout team; co-owner of the cart performance effort"
+  - label: "Company"
+    value: "Best Buy (contract)"
+  - label: "Scale"
+    value: "A critical surface in a large React Native shopping app"
+  - label: "Stack"
+    value: "React Native · React DevTools Profiler · React Compiler · memoization · Jest"
+outcomeValue: "39 → 14"
+outcomeLabel: "hook dependencies, now isolated derivations"
+metrics:
+  - value: "39 → 14"
+    label: "hook dependencies, now isolated derivations"
+    note: ""
+    highlight: true
+  - value: "41"
+    label: "unit tests around the refactor"
+    note: ""
+    highlight: false
+  - value: "Parity"
+    label: "dev versus production trap found"
+    note: ""
+    highlight: false
+  - value: "Isolated"
+    label: "partner work off the critical path"
+    note: ""
+    highlight: false
+diagram: "render-profile"
+published: false
+order: 2
+---
+
+## Context
+
+The cart is a critical surface in a large React Native shopping app. On physical devices it launched slowly and took too long to become interactive. It opens from a multi-tab host app full of home-feed widgets and third-party recommendations, so at first nobody could tell whether the slowness came from our code, the host app's tab lifecycle, or partner-owned carousels.
+
+> I couldn't rely on subjective feedback or unisolated app traces. We had to prove exactly what our team owned versus what external dependencies introduced.
+
+### Approach: an isolated profiling harness
+
+- Replaced the host app's other tabs with empty views to isolate cart entry.
+- Turned off host-level feature flags (such as a personalized home screen).
+- Ran comparison matrices with and without recommendation carousels, on a physical device and in debug builds, to separate JS-thread work from host noise.
+
+## Problem
+
+From the profile; qualitative, no internal measurements.
+
+- Cold start ran many React commits, and a meaningful share of them changed nothing: main-thread time spent without painting a pixel.
+- One unmemoized list-item component dominated startup render time.
+- A cart-sections hook with 30+ dependencies created new object references on every render (for example, nested property reads), so everything downstream re-rendered.
+- Partner-owned carousels added heavy render work in the same pass.
+
+## Options considered
+
+{% table %}
+* Option
+* Trade-off
+---
+* Rely on React Compiler
+* Leave components unmemoized and let the compiler optimize at build time. Rejected: an audit of the Babel config showed the compiler ran only in development, so production builds would ship unoptimized.
+---
+* Broad overhaul
+* Rewrite cart state management and context providers before peak season. Deferred: too large and too risky for the window.
+---
+* Targeted fixes and isolation (chosen)
+* Isolate partner components (recommendation carousels), memoize the high-impact components by hand (the cart line item, discounts), and refactor the unstable hook dependency graph.
+{% /table %}
+
+### The debate
+
+- **Compiler versus manual memoization.** Was manual memoization redundant with React Compiler active? The Babel audit answered it.
+- **Scope.** Block the release on third-party carousel lag, or fix our own render paths first?
+
+## Decision
+
+The team aligned on the third option: high-ROI fixes in our own code first, partner carousel bottlenecks documented for their owners, and large state rewrites deferred. TODO(julio): confirm your part in the decision.
+
+## Architecture
+
+### The hard moment: the dev versus production parity trap
+
+Local profiling ran under experimental compiler settings that auto-memoized components, which hid the real re-render churn. Tracing the production bundle configuration exposed the thrashing hook.
+
+### My work
+
+- Decomposed the monolithic cart-sections hook: 39 raw dependencies became 14 isolated derivations, without breaking the downstream line-item, discount and checkout CTA integrations, and backed by 41 unit tests. TODO(julio): confirm
+- TODO(julio): say which of these you did: inline functions removed from the cart list, memoization of the line-item and discount components.
+
+## Results
+
+- 39 dependencies became 14 isolated derivations, with 41 unit tests (my code).
+- TODO(julio): what you observed after the change, for example "far fewer re-renders in the profiler". Qualitative only.
+
+## What I'd do differently
+
+- **Make dev and production builds match early.** Same Babel plugins, minification and React Compiler behavior, so local profiling can't give false positives.
+- **Add performance gates to CI.** PR-level checks on render counts and dependency-array stability, like bundle-size checks, so a hook with 30+ nested accessors is caught before it merges.
+- **Set async contracts with partner domains.** Mount partner carousels in a secondary pass (lazy-load) so a slow third-party render never blocks the primary cart interaction.

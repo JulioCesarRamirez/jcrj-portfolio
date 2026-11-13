@@ -1,0 +1,14 @@
+group: "Frontend"
+order: 0
+items:
+  - "React"
+  - "TypeScript"
+  - "JavaScript"
+  - "Next.js"
+  - "React Native"
+  - "Tailwind CSS"
+  - "MUI"
+  - "HTML5"
+  - "CSS3"
+  - "Vite"
+  - "Angular"

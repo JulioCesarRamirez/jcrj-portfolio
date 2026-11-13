@@ -1,0 +1,18 @@
+name: "Beek.io"
+type: "mobile"
+org: "Beek.io"
+role: "Full-stack engineer"
+years: "2023 – 2024"
+summary: "React Native app split into modules composed into a host app, with native modules in Swift and Kotlin."
+stack:
+  - "React Native"
+  - "Expo"
+  - "TurboModules"
+  - "Swift"
+  - "Kotlin"
+  - "Fastlane"
+links: []
+caseStudy: null
+screenshots: []
+featured: true
+order: 1

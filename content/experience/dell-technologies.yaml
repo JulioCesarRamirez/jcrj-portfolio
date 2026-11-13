@@ -1,0 +1,18 @@
+company: "Dell Technologies"
+title: "Senior Full-Stack Engineer (remote)"
+location: ""
+start: "Oct 2022"
+end: "Jan 2023"
+summary: "Short engagement, clear scope: improve performance and modernize the stack."
+highlights:
+  - "React and Node.js features cut page load time by about 20%. TODO(julio): confirm OK to publish"
+  - "GraphQL APIs replaced heavier REST calls."
+  - "Tightened CI/CD across AWS, Azure and GCP."
+stack:
+  - "React"
+  - "Node.js"
+  - "GraphQL"
+  - "AWS"
+  - "Azure"
+  - "GCP"
+order: 3

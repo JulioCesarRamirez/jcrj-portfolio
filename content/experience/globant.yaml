@@ -1,0 +1,22 @@
+company: "Globant"
+title: "Senior Full-Stack Engineer & Tech Lead"
+location: "Mexico City"
+start: "Nov 2019"
+end: "May 2021"
+summary: "Led squads of 3 engineers for enterprise clients across React, Angular and Node.js. Proudest part: team building."
+highlights:
+  - "Weekly 1:1s, formal code-review standards, juniors owning features within about 3 months."
+  - "American Express Travel: React and Redux over a Node.js layer integrating the Expedia API; led backlog definition with the product owner and client; introduced RxJS; Jenkins CI/CD and Docker."
+  - "NCFB: Angular app with a Node.js API; Jest and Cypress; Datadog monitoring; Sentry."
+  - "ShareTown: hybrid Angular and React app plus React Native mobile with custom Kotlin and Swift plugins; App Store and Google Play."
+stack:
+  - "React"
+  - "Angular"
+  - "Node.js"
+  - "React Native"
+  - "RxJS"
+  - "Jest"
+  - "Cypress"
+  - "Docker"
+  - "Jenkins"
+order: 5
