@@ -1,0 +1,3 @@
+#!/bin/sh
+# Blocks a push when tracked files or history contain a locally listed forbidden term.
+exec node scripts/check-forbidden.mjs --history
