@@ -1,0 +1,10 @@
+.next
+node_modules
+coverage
+playwright-report
+test-results
+.lighthouseci
+package-lock.json
+CLAUDE.md
+AGENTS.md
+.next-draft
