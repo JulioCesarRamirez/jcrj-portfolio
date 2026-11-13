@@ -41,7 +41,9 @@ test.describe("production shows only finished content", () => {
   test("home links to the published case studies only", async ({ page }) => {
     await page.goto("/");
     await expect(
-      page.getByRole("link", { name: "Case studies" }),
+      page
+        .getByRole("navigation", { name: "Primary" })
+        .getByRole("link", { name: "Case studies" }),
     ).toBeVisible();
     await expect(page.locator("#featured-case-studies")).toBeVisible();
     await expect(
