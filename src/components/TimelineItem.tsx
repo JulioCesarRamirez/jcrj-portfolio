@@ -1,3 +1,11 @@
+import Link from "next/link";
+
+export interface Highlight {
+  text: string;
+  /** Slug of a readable case study, or null. */
+  caseStudy: string | null;
+}
+
 interface Props {
   company: string;
   title: string;
@@ -5,8 +13,10 @@ interface Props {
   start: string;
   end: string;
   summary: string;
-  highlights: readonly string[];
+  highlights: readonly Highlight[];
   stack: readonly string[];
+  /** Link text for a highlight that has a case study. */
+  readLabel?: string;
 }
 
 export function TimelineItem({
@@ -18,6 +28,7 @@ export function TimelineItem({
   summary,
   highlights,
   stack,
+  readLabel = "Read the case study →",
 }: Props) {
   return (
     <li className="border-divider grid gap-4 border-t py-8 md:grid-cols-[200px_1fr]">
@@ -35,7 +46,20 @@ export function TimelineItem({
         {highlights.length > 0 ? (
           <ul className="text-soft list-disc space-y-2 pl-5 text-[15px]">
             {highlights.map((h) => (
-              <li key={h}>{h}</li>
+              <li key={h.text}>
+                {h.text}
+                {h.caseStudy ? (
+                  <>
+                    {" "}
+                    <Link
+                      href={`/case-studies/${h.caseStudy}`}
+                      className="text-accent whitespace-nowrap underline underline-offset-4"
+                    >
+                      {readLabel}
+                    </Link>
+                  </>
+                ) : null}
+              </li>
             ))}
           </ul>
         ) : null}

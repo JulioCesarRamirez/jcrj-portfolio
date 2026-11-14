@@ -27,7 +27,7 @@ it("shows the end date, highlights, location and stack", () => {
         {...props}
         end="Feb 2022"
         location="Chicago, IL"
-        highlights={["Did a thing"]}
+        highlights={[{ text: "Did a thing", caseStudy: null }]}
         stack={["React", "Jest"]}
       />
     </ol>,
@@ -36,4 +36,25 @@ it("shows the end date, highlights, location and stack", () => {
   expect(screen.getByText("Did a thing")).toBeInTheDocument();
   expect(screen.getByText("Chicago, IL")).toBeInTheDocument();
   expect(screen.getByText("React · Jest")).toBeInTheDocument();
+});
+
+it("links a highlight to its case study", () => {
+  render(
+    <ol>
+      <TimelineItem
+        {...props}
+        end="Feb 2022"
+        highlights={[
+          { text: "Cut CI time", caseStudy: "ci-affected-tests" },
+          { text: "Wrote docs", caseStudy: null },
+        ]}
+        readLabel="Read more"
+      />
+    </ol>,
+  );
+  expect(screen.getByRole("link", { name: "Read more" })).toHaveAttribute(
+    "href",
+    "/case-studies/ci-affected-tests",
+  );
+  expect(screen.getAllByRole("link")).toHaveLength(1);
 });

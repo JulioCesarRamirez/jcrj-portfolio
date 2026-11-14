@@ -5,9 +5,12 @@ start: "Oct 2022"
 end: "Jan 2023"
 summary: "Short engagement, clear scope: improve performance and modernize the stack."
 highlights:
-  - "React and Node.js features made page loads about 20% faster."
-  - "GraphQL APIs replaced heavier REST calls."
-  - "Tightened CI/CD across AWS, Azure and GCP."
+  - text: "React and Node.js features made page loads about 20% faster."
+    caseStudy: null
+  - text: "GraphQL APIs replaced heavier REST calls."
+    caseStudy: null
+  - text: "Tightened CI/CD across AWS, Azure and GCP."
+    caseStudy: null
 stack:
   - "React"
   - "Node.js"

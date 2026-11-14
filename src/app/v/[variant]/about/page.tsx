@@ -67,6 +67,7 @@ export default async function AboutPage({
                 end={entry.end}
                 summary={entry.summary}
                 highlights={entry.highlights}
+                readLabel={profile.sections.readCaseStudyLabel}
               />
             ))}
           </ol>

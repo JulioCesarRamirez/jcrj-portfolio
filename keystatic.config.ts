@@ -356,9 +356,20 @@ export default config({
         }),
         summary: fields.text({ label: "Summary", multiline: true }),
         highlights: fields.array(
-          fields.text({ label: "Highlight", multiline: true }),
+          fields.object({
+            text: fields.text({
+              label: "Highlight",
+              multiline: true,
+              validation: { isRequired: true },
+            }),
+            caseStudy: fields.relationship({
+              label: "Related case study",
+              collection: "caseStudies",
+            }),
+          }),
           {
             label: "Highlights",
+            itemLabel: (p) => p.fields.text.value.slice(0, 60),
           },
         ),
         stack: fields.array(fields.text({ label: "Technology" }), {

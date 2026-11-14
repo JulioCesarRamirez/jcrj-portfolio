@@ -5,10 +5,14 @@ start: "Nov 2019"
 end: "May 2021"
 summary: "Led squads of 3 engineers for enterprise clients across React, Angular and Node.js. Proudest part: team building."
 highlights:
-  - "Weekly 1:1s, formal code-review standards, juniors owning features within about 3 months."
-  - "American Express Travel: React and Redux over a Node.js layer integrating the Expedia API; led backlog definition with the product owner and client; introduced RxJS; Jenkins CI/CD and Docker."
-  - "NCFB: Angular app with a Node.js API; Jest and Cypress; Datadog monitoring; Sentry."
-  - "ShareTown: hybrid Ionic and Angular app from scratch, with our own native plugins for Android (Java, GPS tracking) and iOS (Swift)."
+  - text: "Weekly 1:1s, formal code-review standards, juniors owning features within about 3 months."
+    caseStudy: null
+  - text: "American Express Travel: React and Redux over a Node.js layer integrating the Expedia API; led backlog definition with the product owner and client; introduced RxJS; Jenkins CI/CD and Docker."
+    caseStudy: null
+  - text: "NCFB: Angular app with a Node.js API; Jest and Cypress; Datadog monitoring; Sentry."
+    caseStudy: null
+  - text: "ShareTown: hybrid Ionic and Angular app from scratch, with our own native plugins for Android (Java, GPS tracking) and iOS (Swift)."
+    caseStudy: null
 stack:
   - "React"
   - "Angular"

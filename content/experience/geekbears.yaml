@@ -5,9 +5,12 @@ start: "Aug 2017"
 end: "Sep 2018"
 summary: "Multiple startup clients."
 highlights:
-  - "Dumpling: San Francisco grocery-delivery app, React web and React Native, App Store and Google Play."
-  - "Data Scholar: educational app for US school districts (Angular, Jenkins, AWS S3)."
-  - "Learning Planet: international education platform (Angular, AWS S3, PM2, Nginx)."
+  - text: "Dumpling: San Francisco grocery-delivery app, React web and React Native, App Store and Google Play."
+    caseStudy: null
+  - text: "Data Scholar: educational app for US school districts (Angular, Jenkins, AWS S3)."
+    caseStudy: null
+  - text: "Learning Planet: international education platform (Angular, AWS S3, PM2, Nginx)."
+    caseStudy: null
 stack:
   - "React"
   - "React Native"

@@ -5,8 +5,10 @@ start: "Oct 2018"
 end: "Nov 2019"
 summary: "Led a team of 5 on web and hybrid mobile apps for financial services, where banking-grade reliability shapes error handling, data integrity and deployment risk."
 highlights:
-  - "Sabadell Companies: Angular/Ionic business banking app; bank APIs via Node.js; Kubernetes and Jenkins deployment."
-  - "Sabadell Persons: hybrid personal banking app; App Store and Google Play."
+  - text: "Sabadell Companies: Angular/Ionic business banking app; bank APIs via Node.js; Kubernetes and Jenkins deployment."
+    caseStudy: null
+  - text: "Sabadell Persons: hybrid personal banking app; App Store and Google Play."
+    caseStudy: null
 stack:
   - "Angular"
   - "Ionic"

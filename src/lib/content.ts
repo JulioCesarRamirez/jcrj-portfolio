@@ -51,8 +51,25 @@ export const getProfile = cache(async (): Promise<Profile> => {
 });
 
 export const getExperience = cache(async () => {
-  const all = await reader.collections.experience.all();
-  return visible(all, ["company", "title", "start"]).sort(byOrder);
+  const [all, studies] = await Promise.all([
+    reader.collections.experience.all(),
+    getVisibleCaseStudies(),
+  ]);
+  const studySlugs = new Set(studies.map((s) => s.slug));
+  return visible(all, ["company", "title", "start"])
+    .map(({ slug, entry }) => ({
+      slug,
+      entry: {
+        ...entry,
+        // A highlight links to a case study only when readers can open it.
+        highlights: entry.highlights.map((h) => ({
+          text: h.text,
+          caseStudy:
+            h.caseStudy && studySlugs.has(h.caseStudy) ? h.caseStudy : null,
+        })),
+      },
+    }))
+    .sort(byOrder);
 });
 
 export const getSkills = cache(async () => {

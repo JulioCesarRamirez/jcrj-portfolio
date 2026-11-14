@@ -5,13 +5,20 @@ start: "Jun 2021"
 end: "Oct 2022"
 summary: "Landing-page builder used by tens of thousands of marketers, where editor performance affects customer revenue."
 highlights:
-  - "TODO(julio): split between Unbounce and the SaaS client (dates and which work belonged to which)."
-  - "Tech lead for a team of three, including me, on the SaaS client: cut CI from hours to minutes by running only the affected tests."
-  - "Built an internal tool linking each design to its Jira tickets for a SaaS client."
-  - "Reusable component library."
-  - "Sentry error and performance tracking."
-  - "Lerna monorepo package decoupling."
-  - "SonarQube vulnerability remediation and Webpack optimization."
+  - text: "First offshore engineer on the Unbounce team. Built features for the next version of the landing-page editor as server-side-rendered micro-frontends."
+    caseStudy: "editor-microfrontends"
+  - text: "Tech lead of a team of three, including me, for a SaaS client. Cut CI from 3–4 hours to 5–30 minutes by switching to direct imports and running only the tests a change affects."
+    caseStudy: "ci-affected-tests"
+  - text: "Built an internal tool linking designs to Jira tickets."
+    caseStudy: null
+  - text: "Built a reusable component library."
+    caseStudy: null
+  - text: "Added Sentry error and performance tracking."
+    caseStudy: null
+  - text: "Decoupled packages in a Lerna monorepo."
+    caseStudy: null
+  - text: "Fixed SonarQube vulnerabilities and optimized the Webpack build."
+    caseStudy: null
 stack:
   - "React"
   - "TypeScript"

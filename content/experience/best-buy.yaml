@@ -5,13 +5,20 @@ start: "Jan 2023"
 end: ""
 summary: "Frontend on Cart & Checkout, a high-volume surface with zero tolerance for bugs, inside a composable architecture of React Native micro-apps and web micro-frontends."
 highlights:
-  - "Owns frontend development on Cart & Checkout: features that must be fast, accessible and rock solid. Everything ships behind feature flags and A/B tests."
-  - "Composable architecture: React Native micro-apps owned by many feature teams are composed into one consumer app through TurboModules; the web side runs over a shared GraphQL layer. Built a new micro-frontend inside it."
-  - "Primary frontend engineer on a prompt-driven AI search UI that ran alongside the classic product list, across mobile web, desktop and a shared controller library."
-  - "Runs thorough PR reviews, pushes for refactors when code starts fighting the team, treats performance as first-class. CI/CD on GitHub Actions and AWS."
-  - "Timeout and fallback handling kept checkout up when a downstream recommendations service degraded."
-  - "Helped refactor a cart hook with dozens of dependencies on the cold-start performance effort: added and removed memoization (useMemo, memo) and replaced effects with refs."
-  - "Designed an AI-assisted dev workflow connecting 5 repos (shared architecture rules, Jira and GitHub context). Routine bug resolution: 1–2 days → ~2 hours, mostly by removing the context-gathering across repos and tickets."
+  - text: "Owns frontend development on Cart & Checkout: features that must be fast, accessible and rock solid. Everything ships behind feature flags and A/B tests."
+    caseStudy: null
+  - text: "Composable architecture: React Native micro-apps owned by many feature teams are composed into one consumer app through TurboModules; the web side runs over a shared GraphQL layer. Built a new micro-frontend inside it."
+    caseStudy: null
+  - text: "Primary frontend engineer on a prompt-driven AI search UI that ran alongside the classic product list, across mobile web, desktop and a shared controller library."
+    caseStudy: null
+  - text: "Runs thorough PR reviews, pushes for refactors when code starts fighting the team, treats performance as first-class. CI/CD on GitHub Actions and AWS."
+    caseStudy: null
+  - text: "Timeout and fallback handling kept checkout up when a downstream recommendations service degraded."
+    caseStudy: null
+  - text: "Helped refactor a cart hook with dozens of dependencies on the cold-start performance effort: added and removed memoization (useMemo, memo) and replaced effects with refs."
+    caseStudy: null
+  - text: "Designed an AI-assisted dev workflow connecting 5 repos (shared architecture rules, Jira and GitHub context). Routine bug resolution: 1–2 days → ~2 hours, mostly by removing the context-gathering across repos and tickets."
+    caseStudy: null
 stack:
   - "React"
   - "TypeScript"

@@ -161,3 +161,21 @@ test("resume and contact links carry typed tracking attributes", async ({
     page.getByRole("contentinfo").getByRole("link", { name: "GitHub" }),
   ).toHaveAttribute("data-track-props", '{"target":"github"}');
 });
+
+test("the Encora entry shows in production with links to its case studies", async ({
+  page,
+}) => {
+  await page.goto("/about");
+  const entry = page
+    .getByRole("listitem")
+    .filter({ hasText: "Encora (embedded" });
+  await expect(entry).toBeVisible();
+  await expect(entry.getByText("First offshore engineer")).toBeVisible();
+  await expect(
+    entry.getByRole("link", { name: "Read the case study →" }),
+  ).toHaveCount(2);
+  await expect(
+    entry.getByRole("link", { name: "Read the case study →" }).first(),
+  ).toHaveAttribute("href", "/case-studies/editor-microfrontends");
+  expect(await entry.textContent()).not.toMatch(/TODO|Canto/);
+});

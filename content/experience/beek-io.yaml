@@ -5,10 +5,14 @@ start: "Mar 2023"
 end: "Jul 2024"
 summary: "Part-time alongside Best Buy, on a small distributed team."
 highlights:
-  - "React Native on Expo with TurboModules (JSI) written in Swift and Kotlin."
-  - "Push notifications on iOS and Android; Fastlane releases."
-  - "Ruby on Rails REST APIs and API integrations."
-  - "Split the app into modules composed into a host app."
+  - text: "React Native on Expo with TurboModules (JSI) written in Swift and Kotlin."
+    caseStudy: null
+  - text: "Push notifications on iOS and Android; Fastlane releases."
+    caseStudy: null
+  - text: "Ruby on Rails REST APIs and API integrations."
+    caseStudy: null
+  - text: "Split the app into modules composed into a host app."
+    caseStudy: null
 stack:
   - "React Native"
   - "Expo"
