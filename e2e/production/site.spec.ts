@@ -107,7 +107,9 @@ test("home shows looking-for line, how I work and a work-with-me link", async ({
   page,
 }) => {
   await page.goto("/");
-  await expect(page.getByText(/Open to senior React/)).toBeVisible();
+  await expect(
+    page.getByText(/Open to senior frontend and mobile roles/),
+  ).toBeVisible();
   await expect(page.getByRole("heading", { name: "How I work" })).toBeVisible();
   await expect(
     page

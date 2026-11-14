@@ -3,9 +3,9 @@ import { expect, test } from "@playwright/test";
 const MEXICO = "Mexico City · Open to remote (Mexico / LATAM)";
 const CHICAGO = "Chicago, IL · Open to remote (US) and on-site in Chicago";
 const MEXICO_LOOKING =
-  "Open to senior React / React Native roles (remote, Mexico / LATAM) and short contracts.";
+  "Open to senior frontend and mobile roles (React, Next.js, React Native, Angular, Ionic), remote from Mexico / LATAM, and short contracts.";
 const CHICAGO_LOOKING =
-  "Open to senior React / React Native roles (remote or on-site in Chicago) and short contracts.";
+  "Open to senior frontend and mobile roles (React, Next.js, React Native, Angular, Ionic), remote or on-site in Chicago, and short contracts.";
 
 const country = (code: string) => ({ "x-vercel-ip-country": code });
 
@@ -104,23 +104,31 @@ test("excluded paths skip the proxy", async ({ request }) => {
   }
 });
 
-test.describe("the longer Mexico string at 375px", () => {
-  test.use({
-    extraHTTPHeaders: country("MX"),
-    viewport: { width: 375, height: 812 },
-    isMobile: true,
-    hasTouch: true,
-  });
+for (const code of ["MX", "US"]) {
+  test.describe(`the longer looking-for line at 375px (${code})`, () => {
+    test.use({
+      extraHTTPHeaders: country(code),
+      viewport: { width: 375, height: 812 },
+      isMobile: true,
+      hasTouch: true,
+    });
 
-  test("does not overflow horizontally", async ({ page }) => {
-    for (const path of ["/", "/about"]) {
-      await page.goto(path);
-      const overflow = await page.evaluate(
-        () =>
-          document.documentElement.scrollWidth -
-          document.documentElement.clientWidth,
-      );
-      expect(overflow).toBeLessThanOrEqual(0);
-    }
+    test("does not overflow horizontally", async ({ page }) => {
+      for (const path of ["/", "/about"]) {
+        await page.goto(path);
+        const overflow = await page.evaluate(
+          () =>
+            document.documentElement.scrollWidth -
+            document.documentElement.clientWidth,
+        );
+        expect(overflow).toBeLessThanOrEqual(0);
+      }
+      await page.goto("/");
+      const box = await page
+        .getByText(/^Open to senior frontend/)
+        .boundingBox();
+      expect(box).not.toBeNull();
+      expect((box?.x ?? 0) + (box?.width ?? 0)).toBeLessThanOrEqual(375);
+    });
   });
-});
+}

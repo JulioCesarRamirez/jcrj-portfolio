@@ -1,13 +1,14 @@
 name: Julio Ramirez
-eyebrow: Senior React & React Native Engineer
+eyebrow: Senior Frontend & Mobile Engineer
 headline: Fast, reliable React and React Native products, built to scale across teams.
 valueStatement: >-
   9+ years shipping web and mobile apps, from Cart & Checkout at Best Buy to
   banking apps. I design the architecture, lead the people, and make it fast.
 locationLine: Chicago, IL · Open to remote roles in the US & LATAM
 seoDescription: >-
-  Julio Ramirez is a senior React and React Native engineer: architecture,
-  performance and team leadership across web and mobile.
+  Julio Ramirez is a senior frontend and mobile engineer (React, Next.js, React
+  Native, Angular, Ionic): architecture, performance and team leadership across
+  web and mobile.
 primaryCta:
   label: Read the case studies
   href: /case-studies
@@ -86,7 +87,7 @@ sections:
   experienceHeading: Experience
   skillsHeading: Skills
   resumeLabel: Download resume
-  privacyNote: Privacy: this site uses cookieless, aggregate analytics. No personal data is collected, and nothing is sold.
+  privacyNote: "Privacy: this site uses cookieless, aggregate analytics. No personal data is collected, and nothing is sold."
   contactHeading: Hiring a senior React or React Native engineer?
   contactText: I reply within a day. Happy to walk through any case study live.
 resume: /resume/resume.pdf
