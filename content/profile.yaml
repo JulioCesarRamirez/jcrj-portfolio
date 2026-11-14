@@ -1,86 +1,91 @@
-name: "Julio Ramirez"
-eyebrow: "Senior React & React Native Engineer"
-headline: "Fast, reliable React and React Native products, built to scale across teams."
-valueStatement: "9+ years shipping web and mobile apps, from Cart & Checkout at Best Buy to banking apps. I design the architecture, lead the people, and make it fast."
-locationLine: "Chicago, IL · Open to remote roles in the US & LATAM"
-seoDescription: "Julio Ramirez is a senior React and React Native engineer: architecture, performance and team leadership across web and mobile."
+name: Julio Ramirez
+eyebrow: Senior React & React Native Engineer
+headline: Fast, reliable React and React Native products, built to scale across teams.
+valueStatement: >-
+  9+ years shipping web and mobile apps, from Cart & Checkout at Best Buy to
+  banking apps. I design the architecture, lead the people, and make it fast.
+locationLine: Chicago, IL · Open to remote roles in the US & LATAM
+seoDescription: >-
+  Julio Ramirez is a senior React and React Native engineer: architecture,
+  performance and team leadership across web and mobile.
 primaryCta:
-  label: "Read the case studies"
-  href: "/case-studies"
+  label: Read the case studies
+  href: /case-studies
 currently:
-  label: "Currently"
-  status: "Open to offers"
+  label: Currently
+  status: Open to offers
   items:
-    - title: "Senior Frontend Engineer, Best Buy"
-      text: "Cart & Checkout, an AI search UI, React Native micro-app architecture"
-    - title: "CTO and co-founder, SparkNight"
-      text: "Pre-launch date-planning product, aggregating place and event data through a GraphQL API"
+    - title: Senior Frontend Engineer, Best Buy
+      text: Cart & Checkout, an AI search UI, React Native micro-app architecture
+    - title: CTO and co-founder, SparkNight
+      text: >-
+        Pre-launch date-planning product, aggregating place and event data
+        through a GraphQL API
   tags:
-    - "React"
-    - "React Native"
-    - "TypeScript"
-    - "GraphQL"
-    - "TurboModules"
-    - "Next.js"
+    - React
+    - React Native
+    - TypeScript
+    - GraphQL
+    - TurboModules
+    - Next.js
 nav:
-  - label: "Work"
-    href: "/work"
-  - label: "Case studies"
-    href: "/case-studies"
-  - label: "Experience"
-    href: "/about#experience"
-  - label: "Work with me"
-    href: "/work-with-me"
-  - label: "How it's built"
-    href: "/how-this-site-is-built"
-contactLabel: "Contact"
+  - label: Work
+    href: /work
+  - label: Case studies
+    href: /case-studies
+  - label: Experience
+    href: /about#experience
+  - label: Work with me
+    href: /work-with-me
+  - label: How it's built
+    href: /how-this-site-is-built
+contactLabel: Contact
 links:
-  - label: "GitHub"
-    url: "https://github.com/JulioCesarRamirez"
-  - label: "LinkedIn"
-    url: "https://www.linkedin.com/in/julio-cesar-ramirez-jimenez94"
-email: "julio.ramirez9409@gmail.com"
+  - label: GitHub
+    url: https://github.com/JulioCesarRamirez
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/julio-cesar-ramirez-jimenez94
+email: julio.ramirez9409@gmail.com
 proofPoints:
-  - value: "9+"
-    label: "years building React products"
-    note: ""
+  - value: 9+
+    label: years building React products
     highlight: false
-  - value: "5"
-    label: "mobile apps shipped to both stores"
-    note: ""
+  - value: '5'
+    label: mobile apps shipped to both stores
     highlight: false
-  - value: "3 & 5"
-    label: "engineers led as tech lead"
-    note: ""
+  - value: 3 & 5
+    label: engineers led as tech lead
     highlight: false
-  - value: "Days → hours"
-    label: "bug resolution with an AI workflow I designed"
-    note: ""
+  - value: Days → hours
+    label: bug resolution with an AI workflow I designed
     highlight: true
-shippedAtLabel: "Shipped at"
+shippedAtLabel: Shipped at
 shippedAt:
-  - "Best Buy"
-  - "Globant"
-  - "Unbounce"
-  - "Dell"
-  - "GFT · Banco Sabadell"
+  - Best Buy
+  - Globant
+  - Unbounce
+  - Dell
+  - GFT · Banco Sabadell
 sections:
-  caseStudiesEyebrow: "Selected case studies"
-  caseStudiesHeading: "Decisions, not just features"
-  caseStudiesLink: "All case studies →"
-  caseLabel: "Case study"
-  backLabel: "← All case studies"
-  nextLabel: "Next:"
-  keyResultsLabel: "Key results"
-  onThisPageLabel: "On this page"
-  appsEyebrow: "Shipped"
-  appsHeading: "Apps in people's hands"
-  appsLink: "See all work →"
-  workHeading: "Products I've shipped"
-  workIntro: "Web and mobile apps across retail, banking, travel and consumer products, from co-founding a product to teams I led."
-  readCaseStudyLabel: "Read the case study →"
-  experienceHeading: "Experience"
-  skillsHeading: "Skills"
-  resumeLabel: "Download resume"
-  contactHeading: "Hiring a senior React or React Native engineer?"
-  contactText: "I reply within a day. Happy to walk through any case study live."
+  caseStudiesEyebrow: Selected case studies
+  caseStudiesHeading: Decisions, not just features
+  caseStudiesLink: All case studies →
+  caseLabel: Case study
+  backLabel: ← All case studies
+  nextLabel: 'Next:'
+  keyResultsLabel: Key results
+  onThisPageLabel: On this page
+  appsEyebrow: Shipped
+  appsHeading: Apps in people's hands
+  appsLink: See all work →
+  workHeading: Products I've shipped
+  workIntro: >-
+    Web and mobile apps across retail, banking, travel and consumer products,
+    from co-founding a product to teams I led.
+  readCaseStudyLabel: Read the case study →
+  experienceHeading: Experience
+  skillsHeading: Skills
+  resumeLabel: Download resume
+  contactHeading: Hiring a senior React or React Native engineer?
+  contactText: I reply within a day. Happy to walk through any case study live.
+resume: /resume/resume.pdf
