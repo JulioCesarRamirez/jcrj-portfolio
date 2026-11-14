@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageUrls } from "@/lib/metadata";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/Container";
 import { OnThisPage } from "@/components/OnThisPage";
@@ -10,7 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: info?.title,
     description: info?.intro || undefined,
-    alternates: { canonical: "/how-this-site-is-built" },
+    ...pageUrls("/how-this-site-is-built"),
   };
 }
 

@@ -32,8 +32,9 @@ export default defineConfig({
   ],
   webServer: [
     {
+      // SITE_PUBLIC=true: the indexable state. The noindex state runs in the draft project and unit tests.
       // An empty repo keeps Keystatic in local mode, so the build never needs GitHub App credentials.
-      command: `NEXT_PUBLIC_KEYSTATIC_GITHUB_REPO= npm run build && NEXT_PUBLIC_KEYSTATIC_GITHUB_REPO= npx next start -p ${prodPort}`,
+      command: `SITE_PUBLIC=true NEXT_PUBLIC_KEYSTATIC_GITHUB_REPO= npm run build && SITE_PUBLIC=true NEXT_PUBLIC_KEYSTATIC_GITHUB_REPO= npx next start -p ${prodPort}`,
       url: `http://localhost:${prodPort}`,
       reuseExistingServer: !process.env["CI"],
       timeout: 180_000,

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageUrls } from "@/lib/metadata";
 import { notFound } from "next/navigation";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { Container } from "@/components/Container";
@@ -8,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const profile = await getProfile();
   return {
     title: profile.sections.caseStudiesHeading,
-    alternates: { canonical: "/case-studies" },
+    ...pageUrls("/case-studies"),
   };
 }
 

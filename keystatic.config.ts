@@ -170,9 +170,9 @@ export default config({
         resume: fields.file({
           label: "Résumé (PDF)",
           description:
-            "The résumé buttons are hidden until a file is uploaded.",
-          directory: "public/files",
-          publicPath: "/files/",
+            "Name the file Julio_Ramirez_Resume.pdf. It is served at /resume/<file name>. The résumé buttons are hidden until a file is uploaded.",
+          directory: "public/resume",
+          publicPath: "/resume/",
         }),
       },
     }),

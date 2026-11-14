@@ -115,3 +115,19 @@ test("home shows looking-for line, how I work and a work-with-me link", async ({
       .getByRole("link", { name: "Work with me" }),
   ).toBeVisible();
 });
+
+test("a public site is indexable and points crawlers to its sitemap", async ({
+  page,
+  request,
+}) => {
+  await page.goto("/");
+  await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    "href",
+    /^https?:\/\/[^/]+$/,
+  );
+  await expect(page.locator('meta[property="og:url"]')).toHaveCount(1);
+  const robots = await (await request.get("/robots.txt")).text();
+  expect(robots).toContain("Allow: /");
+  expect(robots).toMatch(/Sitemap: \S+\/sitemap\.xml/);
+});

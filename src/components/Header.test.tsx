@@ -36,14 +36,19 @@ it("shows the resume link only with a file", () => {
   const props = { name: "Julio Ramirez", nav: [], contactLabel: "Contact" };
   const { rerender } = render(<Header {...props} />);
   expect(
-    screen.queryAllByRole("link", { name: "Download resume" }),
+    screen.queryAllByRole("link", { name: "Download resume (PDF)" }),
   ).toHaveLength(0);
   rerender(
     <Header
       {...props}
-      resume={{ label: "Download resume", href: "/files/cv.pdf" }}
+      resume={{
+        label: "Download resume",
+        href: "/resume/Julio_Ramirez_Resume.pdf",
+      }}
     />,
   );
-  for (const link of screen.getAllByRole("link", { name: "Download resume" }))
-    expect(link).toHaveAttribute("href", "/files/cv.pdf");
+  for (const link of screen.getAllByRole("link", {
+    name: "Download resume (PDF)",
+  }))
+    expect(link).toHaveAttribute("href", "/resume/Julio_Ramirez_Resume.pdf");
 });

@@ -1,7 +1,9 @@
 import type { MetadataRoute } from "next";
-import { siteUrl } from "@/lib/site";
+import { isIndexable } from "@/lib/indexing";
+import { siteUrl } from "@/lib/site-url";
 
 export default function robots(): MetadataRoute.Robots {
+  if (!isIndexable()) return { rules: { userAgent: "*", disallow: "/" } };
   return {
     rules: {
       userAgent: "*",

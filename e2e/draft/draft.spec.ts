@@ -85,3 +85,22 @@ test.describe("next dev renders drafts for review", () => {
     }
   }
 });
+
+test.describe("a site that is not public stays out of search engines", () => {
+  test("pages carry noindex, robots disallow all, sitemap is empty", async ({
+    page,
+    request,
+  }) => {
+    await page.goto("/");
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+      "content",
+      "noindex, nofollow",
+    );
+    const robots = await (await request.get("/robots.txt")).text();
+    expect(robots).toContain("Disallow: /");
+    expect(robots).not.toContain("Sitemap:");
+    expect(await (await request.get("/sitemap.xml")).text()).not.toContain(
+      "<loc>",
+    );
+  });
+});

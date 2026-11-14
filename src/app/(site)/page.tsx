@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { pageUrls } from "@/lib/metadata";
 import { AppTile } from "@/components/AppTile";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { ContactBand } from "@/components/ContactBand";
@@ -15,6 +17,8 @@ import {
   getVisibleCaseStudies,
   getResume,
 } from "@/lib/content";
+
+export const metadata: Metadata = { ...pageUrls("/") };
 
 const FEATURED_CASE_STUDIES = 3;
 

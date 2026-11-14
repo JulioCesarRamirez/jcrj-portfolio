@@ -16,16 +16,19 @@ it("shows the resume button only when a résumé exists", () => {
     screen.getByRole("heading", { level: 1, name: "Headline" }),
   ).toBeInTheDocument();
   expect(
-    screen.queryByRole("link", { name: "Download resume" }),
+    screen.queryByRole("link", { name: "Download resume (PDF)" }),
   ).not.toBeInTheDocument();
 
   rerender(
     <Hero
       {...props}
-      resume={{ label: "Download resume", href: "/files/cv.pdf" }}
+      resume={{
+        label: "Download resume",
+        href: "/resume/Julio_Ramirez_Resume.pdf",
+      }}
     />,
   );
-  const link = screen.getByRole("link", { name: "Download resume" });
-  expect(link).toHaveAttribute("href", "/files/cv.pdf");
-  expect(link).toHaveAttribute("download");
+  const link = screen.getByRole("link", { name: "Download resume (PDF)" });
+  expect(link).toHaveAttribute("href", "/resume/Julio_Ramirez_Resume.pdf");
+  expect(link).toHaveAttribute("download", "Julio_Ramirez_Resume.pdf");
 });

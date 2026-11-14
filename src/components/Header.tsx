@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { RESUME_ARIA_LABEL, RESUME_FILENAME } from "@/lib/resume";
 import { Container } from "./Container";
 import { MobileMenu } from "./MobileMenu";
 import { ThemeToggle } from "./ThemeToggle";
@@ -52,7 +53,8 @@ export function Header({ name, nav, contactLabel, resume = null }: Props) {
           {resume ? (
             <a
               href={resume.href}
-              download=""
+              download={RESUME_FILENAME}
+              aria-label={RESUME_ARIA_LABEL}
               className={`${linkClass} hidden md:inline-flex`}
             >
               {resume.label}
@@ -79,7 +81,8 @@ export function Header({ name, nav, contactLabel, resume = null }: Props) {
                   <li>
                     <a
                       href={resume.href}
-                      download=""
+                      download={RESUME_FILENAME}
+                      aria-label={RESUME_ARIA_LABEL}
                       className={`${linkClass} w-full`}
                     >
                       {resume.label}

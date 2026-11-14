@@ -4,24 +4,33 @@
 // must stand alone as a token. Output is file:line only; a matched term is never printed.
 //   node scripts/check-forbidden.mjs            tracked files in the working tree
 //   node scripts/check-forbidden.mjs --history  also every commit diff and message
+//   node scripts/check-forbidden.mjs --pdf FILE also scan an uncommitted PDF (never printed, never copied)
+// Committed PDFs under public/ are always scanned for forbidden terms and phone numbers;
+// the phone check needs no terms file, so it also runs in CI.
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 
 const TERMS_FILE = "design-reference/forbidden-terms.txt";
 
-if (!existsSync(TERMS_FILE)) {
-  console.log("check-forbidden: no terms file here, skipping.");
-  process.exit(0);
-}
+const haveTerms = existsSync(TERMS_FILE);
+if (!haveTerms)
+  console.log("check-forbidden: no terms file here, text scan skipped.");
 
 // A short term must not match inside a longer word (a file extension, a common verb), so every term is a whole token.
-const patterns = readFileSync(TERMS_FILE, "utf8")
+const patterns = (haveTerms ? readFileSync(TERMS_FILE, "utf8") : "")
   .split("\n")
   .map((line) => line.trim())
   .filter(Boolean)
   .map((term) => new RegExp(`(?<![A-Za-z0-9])(?:${term})(?![A-Za-z0-9])`, "i"));
 
 const hit = (text) => patterns.some((re) => re.test(text));
+
+// US style (555-123-4567, (555) 123 4567) and international (+52 55 1234 5678).
+const PHONE = [
+  /(?<!\d)(?:\+?\d{1,3}[\s.-]?)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}(?!\d)/,
+  /(?<![\d])\+\d{1,3}[\s.-]?\d(?:[\s.-]?\d){7,11}(?!\d)/,
+];
+const hasPhone = (text) => PHONE.some((re) => re.test(text));
 const git = (...args) =>
   execFileSync("git", args, { encoding: "utf8", maxBuffer: 256 * 1024 * 1024 });
 
@@ -42,6 +51,34 @@ for (const file of git("ls-files", "-z").split("\0").filter(Boolean)) {
       failures++;
     }
   });
+}
+
+async function pdfText(file) {
+  const { PDFParse } = await import("pdf-parse");
+  const parser = new PDFParse({ data: new Uint8Array(readFileSync(file)) });
+  try {
+    return (await parser.getText()).text;
+  } finally {
+    await parser.destroy();
+  }
+}
+
+const pdfs = git("ls-files", "-z", "public")
+  .split("\0")
+  .filter((f) => f.toLowerCase().endsWith(".pdf"));
+const extra = process.argv.includes("--pdf")
+  ? [process.argv[process.argv.indexOf("--pdf") + 1]]
+  : [];
+for (const file of [...pdfs, ...extra]) {
+  const text = await pdfText(file);
+  if (hasPhone(text)) {
+    console.error(`${file}: contains a phone number`);
+    failures++;
+  }
+  if (text.split("\n").some(hit)) {
+    console.error(`${file}: contains a forbidden term`);
+    failures++;
+  }
 }
 
 if (process.argv.includes("--history")) {

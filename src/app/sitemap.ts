@@ -1,8 +1,10 @@
 import type { MetadataRoute } from "next";
+import { isIndexable } from "@/lib/indexing";
 import { getVisibleCaseStudies } from "@/lib/content";
-import { siteUrl } from "@/lib/site";
+import { siteUrl } from "@/lib/site-url";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  if (!isIndexable()) return [];
   const studies = await getVisibleCaseStudies();
   const paths = [
     "",

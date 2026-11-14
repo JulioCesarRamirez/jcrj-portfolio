@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { RESUME_ARIA_LABEL, RESUME_FILENAME } from "@/lib/resume";
 
 export type ButtonVariant = "primary" | "secondary";
 
@@ -8,7 +9,7 @@ interface Props {
   variant?: ButtonVariant;
   children: ReactNode;
   className?: string;
-  /** Marks a file link so the browser saves it instead of navigating. */
+  /** Marks the résumé file link so the browser saves it instead of navigating. */
   download?: boolean;
 }
 
@@ -37,7 +38,12 @@ export function ButtonLink({
     );
   }
   return (
-    <a href={href} className={classes} download={download ? "" : undefined}>
+    <a
+      href={href}
+      className={classes}
+      download={download ? RESUME_FILENAME : undefined}
+      aria-label={download ? RESUME_ARIA_LABEL : undefined}
+    >
       {children}
     </a>
   );

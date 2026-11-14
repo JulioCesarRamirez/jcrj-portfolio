@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import { pageUrls } from "@/lib/metadata";
 import { Container } from "@/components/Container";
 import { Tag } from "@/components/Tag";
-import { TextLink } from "@/components/TextLink";
 import { TimelineItem } from "@/components/TimelineItem";
+import { RESUME_ARIA_LABEL, RESUME_FILENAME } from "@/lib/resume";
 import { getExperience, getProfile, getSkills } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "About",
-  alternates: { canonical: "/about" },
+  ...pageUrls("/about"),
 };
 
 export default async function AboutPage() {
@@ -24,9 +25,14 @@ export default async function AboutPage() {
       </p>
       {profile.resume ? (
         <p className="mt-6">
-          <TextLink href={profile.resume}>
+          <a
+            href={profile.resume}
+            download={RESUME_FILENAME}
+            aria-label={RESUME_ARIA_LABEL}
+            className="text-accent inline-flex min-h-11 items-center text-sm underline-offset-4 hover:underline"
+          >
             {profile.sections.resumeLabel}
-          </TextLink>
+          </a>
         </p>
       ) : null}
 

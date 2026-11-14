@@ -5,7 +5,8 @@ import { DraftBanner } from "@/components/DraftBanner";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { getProfile, getResume, getVisibleCaseStudies } from "@/lib/content";
-import { siteUrl } from "@/lib/site";
+import { isIndexable } from "@/lib/indexing";
+import { siteUrl } from "@/lib/site-url";
 import { themeScript } from "@/lib/theme-script";
 import { isDraftMode } from "@/lib/visibility";
 import "../globals.css";
@@ -25,6 +26,12 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s · ${profile.name}`,
     },
     description: profile.seoDescription,
+    robots: isIndexable() ? undefined : { index: false, follow: false },
+    twitter: {
+      card: "summary",
+      title: profile.name,
+      description: profile.seoDescription,
+    },
     openGraph: {
       type: "website",
       siteName: profile.name,

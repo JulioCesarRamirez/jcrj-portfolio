@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageUrls } from "@/lib/metadata";
 import { Container } from "@/components/Container";
 import { WorkBrowser } from "@/components/WorkBrowser";
 import { getApps, getProfile } from "@/lib/content";
@@ -7,7 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const profile = await getProfile();
   return {
     title: profile.sections.workHeading,
-    alternates: { canonical: "/work" },
+    ...pageUrls("/work"),
   };
 }
 

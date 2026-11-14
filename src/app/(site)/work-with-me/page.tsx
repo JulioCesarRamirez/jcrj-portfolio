@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageUrls } from "@/lib/metadata";
 import { ButtonLink } from "@/components/ButtonLink";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { Container } from "@/components/Container";
@@ -15,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: workWithMe.title,
     description: workWithMe.intro,
-    alternates: { canonical: "/work-with-me" },
+    ...pageUrls("/work-with-me"),
   };
 }
 

@@ -32,6 +32,8 @@ jobs:
   build:
     name: Build and e2e
     runs-on: ubuntu-latest
+    env:
+      SITE_PUBLIC: "true"
     needs: check
     steps:
       - uses: actions/checkout@v4
@@ -53,6 +55,8 @@ jobs:
   lighthouse:
     name: Lighthouse CI
     runs-on: ubuntu-latest
+    env:
+      SITE_PUBLIC: "true"
     needs: check
     steps:
       - uses: actions/checkout@v4
