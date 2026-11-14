@@ -101,8 +101,18 @@ export const getFeaturedApps = cache(async () =>
   (await getApps()).filter((a) => a.entry.featured),
 );
 
-export function getResume(file: string | null, label: string) {
-  return file ? { label, href: file } : null;
+export interface Resume {
+  label: string;
+  href: string;
+  variant: Variant;
+}
+
+export function getResume(
+  file: string | null,
+  label: string,
+  variant: Variant,
+): Resume | null {
+  return file ? { label, href: file, variant } : null;
 }
 
 export const getSiteInfo = cache(async () => {

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import type { trackAttrs } from "@/lib/analytics";
 import { RESUME_ARIA_LABEL, RESUME_FILENAME } from "@/lib/resume";
 
 export type ButtonVariant = "primary" | "secondary";
@@ -11,6 +12,8 @@ interface Props {
   className?: string;
   /** Marks the résumé file link so the browser saves it instead of navigating. */
   download?: boolean;
+  /** Records a custom event on click; see `trackAttrs`. */
+  track?: ReturnType<typeof trackAttrs>;
 }
 
 const base =
@@ -28,11 +31,12 @@ export function ButtonLink({
   children,
   className = "",
   download,
+  track,
 }: Props) {
   const classes = `${base} ${variants[variant]} ${className}`;
   if (href.startsWith("/") && !download) {
     return (
-      <Link href={href} className={classes}>
+      <Link href={href} className={classes} {...track}>
         {children}
       </Link>
     );
@@ -41,6 +45,7 @@ export function ButtonLink({
     <a
       href={href}
       className={classes}
+      {...track}
       download={download ? RESUME_FILENAME : undefined}
       aria-label={download ? RESUME_ARIA_LABEL : undefined}
     >

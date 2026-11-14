@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { viewAttrs } from "@/lib/analytics";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/Container";
@@ -109,7 +110,12 @@ export default async function CaseStudyPage({
                 Scroll sideways to see the full diagram.
               </figcaption>
             </figure>
-            <article className="case-body">{content}</article>
+            <article
+              className="case-body"
+              {...viewAttrs("case_study_view", { slug })}
+            >
+              {content}
+            </article>
             <nav
               aria-label="Case study navigation"
               className="border-divider mt-16 flex flex-wrap justify-between gap-4 border-t pt-6"

@@ -5,6 +5,7 @@ import { pageUrls } from "@/lib/metadata";
 import { Container } from "@/components/Container";
 import { Tag } from "@/components/Tag";
 import { TimelineItem } from "@/components/TimelineItem";
+import { trackAttrs } from "@/lib/analytics";
 import { RESUME_ARIA_LABEL, RESUME_FILENAME } from "@/lib/resume";
 import {
   getExperience,
@@ -41,6 +42,7 @@ export default async function AboutPage({
             href={location.resume}
             download={RESUME_FILENAME}
             aria-label={RESUME_ARIA_LABEL}
+            {...trackAttrs("resume_download", { variant })}
             className="text-accent inline-flex min-h-11 items-center text-sm underline-offset-4 hover:underline"
           >
             {profile.sections.resumeLabel}

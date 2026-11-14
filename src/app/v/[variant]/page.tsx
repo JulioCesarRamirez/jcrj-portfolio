@@ -36,7 +36,11 @@ export default async function HomePage({ params }: PageProps<"/v/[variant]">) {
     getFeaturedApps(),
   ]);
   const featured = caseStudies.slice(0, FEATURED_CASE_STUDIES);
-  const resume = getResume(location.resume, profile.sections.resumeLabel);
+  const resume = getResume(
+    location.resume,
+    profile.sections.resumeLabel,
+    variant,
+  );
   // Without readable case studies the CTA would lead to a 404.
   const primaryCta =
     caseStudies.length === 0 &&

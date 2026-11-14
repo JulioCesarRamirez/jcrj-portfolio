@@ -131,3 +131,31 @@ test("a public site is indexable and points crawlers to its sitemap", async ({
   expect(robots).toContain("Allow: /");
   expect(robots).toMatch(/Sitemap: \S+\/sitemap\.xml/);
 });
+
+test("analytics stay off outside Vercel production", async ({ page }) => {
+  const requests: string[] = [];
+  page.on("request", (request) => requests.push(request.url()));
+  await page.goto("/");
+  await page.waitForLoadState("networkidle");
+  expect(requests.filter((url) => url.includes("/_vercel/"))).toEqual([]);
+  await expect(page.locator('script[src*="_vercel"]')).toHaveCount(0);
+});
+
+test("the footer states the privacy policy", async ({ page }) => {
+  await page.goto("/");
+  await expect(
+    page.getByRole("contentinfo").getByText(/cookieless, aggregate analytics/),
+  ).toBeVisible();
+});
+
+test("resume and contact links carry typed tracking attributes", async ({
+  page,
+}) => {
+  await page.goto("/work-with-me");
+  await expect(
+    page.getByRole("link", { name: "Start a project" }).first(),
+  ).toHaveAttribute("data-track", "start_project_click");
+  await expect(
+    page.getByRole("contentinfo").getByRole("link", { name: "GitHub" }),
+  ).toHaveAttribute("data-track-props", '{"target":"github"}');
+});

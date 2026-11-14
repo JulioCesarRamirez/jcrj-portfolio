@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { RESUME_ARIA_LABEL, RESUME_FILENAME } from "@/lib/resume";
 import { Container } from "./Container";
+import { trackAttrs } from "@/lib/analytics";
+import type { Resume } from "@/lib/content";
 import { MobileMenu } from "./MobileMenu";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -8,7 +10,7 @@ interface Props {
   name: string;
   nav: readonly { label: string; href: string }[];
   contactLabel: string;
-  resume?: { label: string; href: string } | null;
+  resume?: Resume | null;
 }
 
 export function initials(name: string): string {
@@ -55,6 +57,7 @@ export function Header({ name, nav, contactLabel, resume = null }: Props) {
               href={resume.href}
               download={RESUME_FILENAME}
               aria-label={RESUME_ARIA_LABEL}
+              {...trackAttrs("resume_download", { variant: resume.variant })}
               className={`${linkClass} hidden md:inline-flex`}
             >
               {resume.label}
@@ -83,6 +86,9 @@ export function Header({ name, nav, contactLabel, resume = null }: Props) {
                       href={resume.href}
                       download={RESUME_FILENAME}
                       aria-label={RESUME_ARIA_LABEL}
+                      {...trackAttrs("resume_download", {
+                        variant: resume.variant,
+                      })}
                       className={`${linkClass} w-full`}
                     >
                       {resume.label}

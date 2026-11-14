@@ -181,6 +181,10 @@ export default config({
             experienceHeading: fields.text({ label: "Experience heading" }),
             skillsHeading: fields.text({ label: "Skills heading" }),
             resumeLabel: fields.text({ label: "Résumé link label" }),
+            privacyNote: fields.text({
+              label: "Footer privacy line",
+              multiline: true,
+            }),
             contactHeading: fields.text({ label: "Contact heading" }),
             contactText: fields.text({
               label: "Contact text",
@@ -292,19 +296,18 @@ export default config({
       label: "Location variants",
       path: "content/location-variants",
       schema: {
-        mexicoCountries: fields.array(
-          fields.text({ label: "Country code" }),
-          {
-            label: "Countries that see the Mexico variant",
-            description:
-              "ISO codes, for example MX. Everyone else sees Chicago. Takes effect on the next build.",
-            itemLabel: (p) => p.value,
-          },
-        ),
+        mexicoCountries: fields.array(fields.text({ label: "Country code" }), {
+          label: "Countries that see the Mexico variant",
+          description:
+            "ISO codes, for example MX. Everyone else sees Chicago. Takes effect on the next build.",
+          itemLabel: (p) => p.value,
+        }),
         chicago: fields.object(locationVariantFields, {
           label: "Chicago (default)",
         }),
-        mexico: fields.object(locationVariantFields, { label: "Mexico / LATAM" }),
+        mexico: fields.object(locationVariantFields, {
+          label: "Mexico / LATAM",
+        }),
       },
     }),
     siteInfo: singleton({

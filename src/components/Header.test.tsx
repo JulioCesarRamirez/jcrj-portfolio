@@ -44,6 +44,7 @@ it("shows the resume link only with a file", () => {
       resume={{
         label: "Download resume",
         href: "/resume/Julio_Ramirez_Resume.pdf",
+        variant: "mexico",
       }}
     />,
   );

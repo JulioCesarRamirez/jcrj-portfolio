@@ -1,3 +1,5 @@
+import { trackAttrs } from "@/lib/analytics";
+import type { Resume } from "@/lib/content";
 import { ButtonLink } from "./ButtonLink";
 import { Container } from "./Container";
 import { CurrentlyCard } from "./CurrentlyCard";
@@ -9,7 +11,7 @@ interface Props {
   headline: string;
   valueStatement: string;
   primaryCta: { label: string; href: string } | null;
-  resume: { label: string; href: string } | null;
+  resume: Resume | null;
   locationLine: string;
   lookingFor?: string;
   currently: React.ComponentProps<typeof CurrentlyCard>;
@@ -51,7 +53,14 @@ export function Hero({
               </ButtonLink>
             ) : null}
             {resume ? (
-              <ButtonLink href={resume.href} variant="secondary" download>
+              <ButtonLink
+                href={resume.href}
+                variant="secondary"
+                download
+                track={trackAttrs("resume_download", {
+                  variant: resume.variant,
+                })}
+              >
                 <DownloadIcon />
                 {resume.label}
               </ButtonLink>

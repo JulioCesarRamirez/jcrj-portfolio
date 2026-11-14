@@ -5,6 +5,8 @@ import { DevTodoHighlight } from "@/components/DevTodoHighlight";
 import { DraftBanner } from "@/components/DraftBanner";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { AnalyticsRoot } from "@/components/AnalyticsRoot";
+import { analyticsEnabled } from "@/lib/analytics";
 import { JsonLd } from "@/components/JsonLd";
 import {
   getLocation,
@@ -95,8 +97,13 @@ export default async function RootLayout({
           name={profile.name}
           nav={nav}
           contactLabel={profile.contactLabel}
-          resume={getResume(location.resume, profile.sections.resumeLabel)}
+          resume={getResume(
+            location.resume,
+            profile.sections.resumeLabel,
+            variant,
+          )}
         />
+        {analyticsEnabled ? <AnalyticsRoot /> : null}
         <JsonLd profile={profile} location={location} />
         <main id="main" className="flex-1">
           {children}
@@ -105,6 +112,7 @@ export default async function RootLayout({
           name={profile.name}
           email={profile.email}
           links={profile.links}
+          privacyNote={profile.sections.privacyNote}
         />
       </body>
     </html>

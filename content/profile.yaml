@@ -86,6 +86,7 @@ sections:
   experienceHeading: Experience
   skillsHeading: Skills
   resumeLabel: Download resume
+  privacyNote: Privacy: this site uses cookieless, aggregate analytics. No personal data is collected, and nothing is sold.
   contactHeading: Hiring a senior React or React Native engineer?
   contactText: I reply within a day. Happy to walk through any case study live.
 resume: /resume/resume.pdf

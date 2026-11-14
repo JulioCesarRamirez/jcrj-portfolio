@@ -25,10 +25,13 @@ it("shows the resume button only when a résumé exists", () => {
       resume={{
         label: "Download resume",
         href: "/resume/Julio_Ramirez_Resume.pdf",
+        variant: "mexico",
       }}
     />,
   );
   const link = screen.getByRole("link", { name: "Download resume (PDF)" });
   expect(link).toHaveAttribute("href", "/resume/Julio_Ramirez_Resume.pdf");
   expect(link).toHaveAttribute("download", "Julio_Ramirez_Resume.pdf");
+  expect(link).toHaveAttribute("data-track", "resume_download");
+  expect(link).toHaveAttribute("data-track-props", '{"variant":"mexico"}');
 });

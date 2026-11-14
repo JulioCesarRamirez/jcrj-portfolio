@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { pageUrls } from "@/lib/metadata";
+import { trackAttrs } from "@/lib/analytics";
 import { ButtonLink } from "@/components/ButtonLink";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { Container } from "@/components/Container";
@@ -42,7 +43,9 @@ export default async function WorkWithMePage() {
       </p>
       {mailto && page.ctaLabel ? (
         <div className="pt-8">
-          <ButtonLink href={mailto}>{page.ctaLabel}</ButtonLink>
+          <ButtonLink href={mailto} track={trackAttrs("start_project_click")}>
+            {page.ctaLabel}
+          </ButtonLink>
         </div>
       ) : null}
 
@@ -89,7 +92,9 @@ export default async function WorkWithMePage() {
           <p className="text-text max-w-[520px] text-[24px] leading-tight font-semibold tracking-[-0.02em]">
             {engagement.teaser.heading}
           </p>
-          <ButtonLink href={mailto}>{page.ctaLabel}</ButtonLink>
+          <ButtonLink href={mailto} track={trackAttrs("start_project_click")}>
+            {page.ctaLabel}
+          </ButtonLink>
         </div>
       ) : null}
     </Container>

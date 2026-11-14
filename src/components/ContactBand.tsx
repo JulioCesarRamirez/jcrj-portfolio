@@ -1,3 +1,5 @@
+import { trackAttrs } from "@/lib/analytics";
+import type { Resume } from "@/lib/content";
 import { ButtonLink } from "./ButtonLink";
 import { Container } from "./Container";
 import { DownloadIcon } from "./Icons";
@@ -6,7 +8,7 @@ interface Props {
   heading: string;
   text: string;
   email: string;
-  resume: { label: string; href: string } | null;
+  resume: Resume | null;
 }
 
 export function ContactBand({ heading, text, email, resume }: Props) {
@@ -28,10 +30,22 @@ export function ContactBand({ heading, text, email, resume }: Props) {
             <p className="text-muted text-base leading-[1.6]">{text}</p>
             <div className="flex flex-wrap gap-3 pt-4">
               {email ? (
-                <ButtonLink href={`mailto:${email}`}>{email}</ButtonLink>
+                <ButtonLink
+                  href={`mailto:${email}`}
+                  track={trackAttrs("contact_click", { target: "email" })}
+                >
+                  {email}
+                </ButtonLink>
               ) : null}
               {resume ? (
-                <ButtonLink href={resume.href} variant="secondary" download>
+                <ButtonLink
+                  href={resume.href}
+                  variant="secondary"
+                  download
+                  track={trackAttrs("resume_download", {
+                    variant: resume.variant,
+                  })}
+                >
                   <DownloadIcon />
                   {resume.label}
                 </ButtonLink>
