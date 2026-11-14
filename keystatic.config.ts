@@ -14,6 +14,28 @@ const labelValueFields = {
   value: fields.text({ label: "Value", validation: { isRequired: true } }),
 };
 
+const locationVariantFields = {
+  locationLine: fields.text({ label: "Hero location line" }),
+  lookingFor: fields.text({
+    label: "“Currently looking for” line",
+    multiline: true,
+    description: "Replaces the text on Home for visitors in this variant.",
+  }),
+  locality: fields.text({ label: "City (JSON-LD)" }),
+  region: fields.text({ label: "Region or state (JSON-LD)" }),
+  country: fields.text({
+    label: "Country code (JSON-LD)",
+    description: "Two letters, for example US or MX.",
+  }),
+  resume: fields.file({
+    label: "Résumé (PDF)",
+    description:
+      "For example resume-chicago.pdf. If only one variant has a file, both use it.",
+    directory: "public/resume",
+    publicPath: "/resume/",
+  }),
+};
+
 export default config({
   // GitHub mode in production (every save is a commit); local mode in dev.
   // NEXT_PUBLIC_KEYSTATIC_STORAGE=github forces GitHub mode in `next dev` (used once, to create the GitHub App).
@@ -264,6 +286,25 @@ export default config({
           },
           { label: "Work with me page" },
         ),
+      },
+    }),
+    locationVariants: singleton({
+      label: "Location variants",
+      path: "content/location-variants",
+      schema: {
+        mexicoCountries: fields.array(
+          fields.text({ label: "Country code" }),
+          {
+            label: "Countries that see the Mexico variant",
+            description:
+              "ISO codes, for example MX. Everyone else sees Chicago. Takes effect on the next build.",
+            itemLabel: (p) => p.value,
+          },
+        ),
+        chicago: fields.object(locationVariantFields, {
+          label: "Chicago (default)",
+        }),
+        mexico: fields.object(locationVariantFields, { label: "Mexico / LATAM" }),
       },
     }),
     siteInfo: singleton({

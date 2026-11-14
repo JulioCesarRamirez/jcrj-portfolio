@@ -6,6 +6,7 @@ import {
   isDraftMode,
   withRequiredFields,
 } from "./visibility";
+import type { Variant } from "./location";
 
 export type Profile = NonNullable<
   Awaited<ReturnType<typeof reader.singletons.profile.read>>
@@ -100,8 +101,8 @@ export const getFeaturedApps = cache(async () =>
   (await getApps()).filter((a) => a.entry.featured),
 );
 
-export function getResume(profile: Profile, label: string) {
-  return profile.resume ? { label, href: profile.resume } : null;
+export function getResume(file: string | null, label: string) {
+  return file ? { label, href: file } : null;
 }
 
 export const getSiteInfo = cache(async () => {
@@ -114,4 +115,33 @@ export const getEngagement = cache(async () => {
   if (!engagement)
     throw new Error("Missing content/engagement. Create it in /keystatic.");
   return applyVisibility(engagement);
+});
+
+const OTHER: Record<Variant, Variant> = {
+  chicago: "mexico",
+  mexico: "chicago",
+};
+
+/** Location copy, address and résumé for one variant. The résumé falls back to the other variant's, then to the profile's. */
+export const getLocation = cache(async (variant: Variant) => {
+  const [raw, profile] = await Promise.all([
+    reader.singletons.locationVariants.read(),
+    getProfile(),
+  ]);
+  if (!raw)
+    throw new Error(
+      "Missing content/location-variants. Create it in /keystatic.",
+    );
+  const data = applyVisibility(raw);
+  const own = data[variant];
+  return {
+    locationLine: own.locationLine || profile.locationLine,
+    lookingFor: own.lookingFor,
+    address: {
+      locality: own.locality,
+      region: own.region,
+      country: own.country,
+    },
+    resume: own.resume ?? data[OTHER[variant]].resume ?? profile.resume,
+  };
 });

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { isVariant } from "@/lib/location";
 import { pageUrls } from "@/lib/metadata";
 import { AppTile } from "@/components/AppTile";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
@@ -12,6 +14,7 @@ import { TitledGrid } from "@/components/TitledGrid";
 import { ShippedAt } from "@/components/ShippedAt";
 import {
   getEngagement,
+  getLocation,
   getFeaturedApps,
   getProfile,
   getVisibleCaseStudies,
@@ -22,15 +25,18 @@ export const metadata: Metadata = { ...pageUrls("/") };
 
 const FEATURED_CASE_STUDIES = 3;
 
-export default async function HomePage() {
-  const [profile, engagement, caseStudies, apps] = await Promise.all([
+export default async function HomePage({ params }: PageProps<"/v/[variant]">) {
+  const { variant } = await params;
+  if (!isVariant(variant)) notFound();
+  const [profile, engagement, location, caseStudies, apps] = await Promise.all([
     getProfile(),
     getEngagement(),
+    getLocation(variant),
     getVisibleCaseStudies(),
     getFeaturedApps(),
   ]);
   const featured = caseStudies.slice(0, FEATURED_CASE_STUDIES);
-  const resume = getResume(profile, profile.sections.resumeLabel);
+  const resume = getResume(location.resume, profile.sections.resumeLabel);
   // Without readable case studies the CTA would lead to a 404.
   const primaryCta =
     caseStudies.length === 0 &&
@@ -46,9 +52,11 @@ export default async function HomePage() {
         valueStatement={profile.valueStatement}
         primaryCta={primaryCta}
         resume={resume}
-        locationLine={profile.locationLine}
+        locationLine={location.locationLine}
         lookingFor={
-          engagement.lookingFor.show ? engagement.lookingFor.text : ""
+          engagement.lookingFor.show
+            ? location.lookingFor || engagement.lookingFor.text
+            : ""
         }
         currently={profile.currently}
       />

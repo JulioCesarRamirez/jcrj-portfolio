@@ -1,21 +1,33 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { isVariant } from "@/lib/location";
 import { pageUrls } from "@/lib/metadata";
 import { Container } from "@/components/Container";
 import { Tag } from "@/components/Tag";
 import { TimelineItem } from "@/components/TimelineItem";
 import { RESUME_ARIA_LABEL, RESUME_FILENAME } from "@/lib/resume";
-import { getExperience, getProfile, getSkills } from "@/lib/content";
+import {
+  getExperience,
+  getLocation,
+  getProfile,
+  getSkills,
+} from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "About",
   ...pageUrls("/about"),
 };
 
-export default async function AboutPage() {
-  const [profile, experience, skills] = await Promise.all([
+export default async function AboutPage({
+  params,
+}: PageProps<"/v/[variant]/about">) {
+  const { variant } = await params;
+  if (!isVariant(variant)) notFound();
+  const [profile, experience, skills, location] = await Promise.all([
     getProfile(),
     getExperience(),
     getSkills(),
+    getLocation(variant),
   ]);
   return (
     <Container className="py-16">
@@ -23,10 +35,10 @@ export default async function AboutPage() {
       <p className="text-muted mt-4 max-w-2xl text-[17px] leading-[1.7]">
         {profile.valueStatement}
       </p>
-      {profile.resume ? (
+      {location.resume ? (
         <p className="mt-6">
           <a
-            href={profile.resume}
+            href={location.resume}
             download={RESUME_FILENAME}
             aria-label={RESUME_ARIA_LABEL}
             className="text-accent inline-flex min-h-11 items-center text-sm underline-offset-4 hover:underline"

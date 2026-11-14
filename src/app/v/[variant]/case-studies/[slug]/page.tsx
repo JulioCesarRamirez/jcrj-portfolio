@@ -19,7 +19,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: PageProps<"/case-studies/[slug]">): Promise<Metadata> {
+}: PageProps<"/v/[variant]/case-studies/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const study = await getCaseStudy(slug);
   if (!study) return {};
@@ -32,7 +32,7 @@ export async function generateMetadata({
 
 export default async function CaseStudyPage({
   params,
-}: PageProps<"/case-studies/[slug]">) {
+}: PageProps<"/v/[variant]/case-studies/[slug]">) {
   const { slug } = await params;
   const [study, profile, all] = await Promise.all([
     getCaseStudy(slug),

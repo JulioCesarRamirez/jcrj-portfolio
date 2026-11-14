@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/gen-geo.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -15,7 +16,7 @@
     "lhci": "lhci autorun",
     "size": "node scripts/check-bundle-size.mjs",
     "check:todos": "node scripts/check-todos.mjs",
-    "prebuild": "node scripts/check-todos.mjs",
+    "prebuild": "node scripts/gen-geo.mjs && node scripts/check-todos.mjs",
     "dev:github": "NEXT_PUBLIC_KEYSTATIC_STORAGE=github next dev",
     "check:forbidden": "node scripts/check-forbidden.mjs"
   },
@@ -23,6 +24,8 @@
     "@keystatic/core": "^0.6.9",
     "@keystatic/next": "^5.0.5",
     "@markdoc/markdoc": "0.4.0",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.1.0",
     "next": "16.4.6",
     "react": "19.3.0",
     "react-dom": "19.3.0"

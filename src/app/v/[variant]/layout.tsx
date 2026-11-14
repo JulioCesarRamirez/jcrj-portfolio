@@ -1,21 +1,36 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
 import { DevTodoHighlight } from "@/components/DevTodoHighlight";
 import { DraftBanner } from "@/components/DraftBanner";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { getProfile, getResume, getVisibleCaseStudies } from "@/lib/content";
+import { JsonLd } from "@/components/JsonLd";
+import {
+  getLocation,
+  getProfile,
+  getResume,
+  getVisibleCaseStudies,
+} from "@/lib/content";
+import { VARIANTS, isVariant } from "@/lib/location";
 import { isIndexable } from "@/lib/indexing";
 import { siteUrl } from "@/lib/site-url";
 import { themeScript } from "@/lib/theme-script";
 import { isDraftMode } from "@/lib/visibility";
-import "../globals.css";
+import "../../globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+// Both variants are prerendered; the proxy picks one per request.
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return VARIANTS.map((variant) => ({ variant }));
+}
 
 export async function generateMetadata(): Promise<Metadata> {
   const profile = await getProfile();
@@ -41,10 +56,16 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function RootLayout({ children }: LayoutProps<"/">) {
-  const [profile, caseStudies] = await Promise.all([
+export default async function RootLayout({
+  children,
+  params,
+}: LayoutProps<"/v/[variant]">) {
+  const { variant } = await params;
+  if (!isVariant(variant)) notFound();
+  const [profile, caseStudies, location] = await Promise.all([
     getProfile(),
     getVisibleCaseStudies(),
+    getLocation(variant),
   ]);
   const draft = isDraftMode();
   // No readable case studies: the page 404s, so the link must not exist.
@@ -74,8 +95,9 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           name={profile.name}
           nav={nav}
           contactLabel={profile.contactLabel}
-          resume={getResume(profile, profile.sections.resumeLabel)}
+          resume={getResume(location.resume, profile.sections.resumeLabel)}
         />
+        <JsonLd profile={profile} location={location} />
         <main id="main" className="flex-1">
           {children}
         </main>
