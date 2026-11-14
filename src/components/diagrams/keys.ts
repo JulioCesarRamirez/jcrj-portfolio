@@ -9,6 +9,10 @@ export const DIAGRAM_KEYS = [
   "sparknight-aggregation",
   "beek-native-player",
   "cms-driven-angular",
+  "sharetown-native-plugins",
+  "dell-prefetch",
+  "editor-microfrontends",
+  "ci-affected-tests",
 ] as const;
 
 export type DiagramKey = (typeof DIAGRAM_KEYS)[number];
@@ -22,6 +26,14 @@ export const DIAGRAM_LABELS: Record<DiagramKey, string> = {
   "beek-native-player": "Shared React Native modules over native audio players",
   "cms-driven-angular":
     "Content manager driving an Angular app through a component API",
+  "sharetown-native-plugins":
+    "Hybrid app calling custom native plugins on Android and iOS",
+  "dell-prefetch":
+    "Predicted navigation, lean GraphQL prefetch, cache and memoized components",
+  "editor-microfrontends":
+    "Host editor and reconciliation layer over server-side-rendered micro-frontends",
+  "ci-affected-tests":
+    "CI before and after: barrel imports versus affected tests only",
 };
 
 export function isDiagramKey(value: unknown): value is DiagramKey {

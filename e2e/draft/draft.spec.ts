@@ -9,6 +9,10 @@ const SLUGS = [
   "sparknight",
   "beek-native-player",
   "cms-driven-angular",
+  "sharetown-native-plugins",
+  "dell-prefetch",
+  "editor-microfrontends",
+  "ci-affected-tests",
 ];
 
 test.describe("next dev renders drafts for review", () => {
@@ -29,8 +33,8 @@ test.describe("next dev renders drafts for review", () => {
     page,
   }) => {
     await page.goto("/case-studies");
-    await expect(page.getByRole("article")).toHaveCount(6);
-    await expect(page.getByText("Draft", { exact: true })).toHaveCount(4);
+    await expect(page.getByRole("article")).toHaveCount(10);
+    await expect(page.getByText("Draft", { exact: true })).toHaveCount(8);
   });
 
   test("a draft case study renders in full with its anchor nav", async ({

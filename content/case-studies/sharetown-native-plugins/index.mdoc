@@ -1,0 +1,50 @@
+---
+title: "ShareTown: custom native plugins for a hybrid logistics app"
+summary: "A from-scratch hybrid app for moving returned e-commerce packages. Community plugins were unstable, so we wrote our own native plugins, and I owned Android GPS tracking."
+lede: "Community plugins for Ionic were limited and unstable. We wrote our own native plugins instead, and I owned the Android side, including GPS tracking."
+category: "Mobile · Native"
+company: "Globant"
+facts:
+  - label: "Role"
+    value: "Senior engineer"
+  - label: "Client"
+    value: "ShareTown, a Seattle startup"
+  - label: "Employer"
+    value: "Globant"
+  - label: "Stack"
+    value: "Ionic · Angular · TypeScript · Java/Android · Swift/iOS"
+outcomeValue: "2"
+outcomeLabel: "engineers, built from scratch"
+metrics:
+  - value: "2"
+    label: "engineers, built from scratch"
+    note: ""
+    highlight: true
+  - value: "Own"
+    label: "native plugins over unstable community ones"
+    note: ""
+    highlight: false
+  - value: "Android"
+    label: "GPS tracking"
+    note: ""
+    highlight: false
+  - value: "Documented"
+    label: "handover to the client"
+    note: ""
+    highlight: false
+diagram: "sharetown-native-plugins"
+published: false
+order: 6
+---
+
+## Context
+
+ShareTown handled returned and unsellable e-commerce packages and moved them to new locations. We built the app from scratch, with views for drivers and for people managing storage and inventory. The team was two senior engineers: I owned Android and the Angular web side, and an engineer in Colombia owned iOS.
+
+## Decision
+
+At the time, Ionic's community plugins were limited and unstable. Rather than depend on them, we wrote our own native plugins. I owned GPS tracking on Android, and we also added barcode-scanning and camera plugins. Owning the native layer made the app noticeably more stable.
+
+## Trade-off
+
+Custom plugins need engineers comfortable with both Angular and native code, and those are hard to hire. We offset that with thorough documentation and a full handover to the client. My teammate stayed on and saw the app through release.

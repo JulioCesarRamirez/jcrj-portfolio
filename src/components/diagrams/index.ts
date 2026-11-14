@@ -1,9 +1,13 @@
 import type { ComponentType } from "react";
 import { BeekNativePlayer } from "./BeekNativePlayer";
 import { CmsDrivenAngular } from "./CmsDrivenAngular";
+import { CiAffectedTests } from "./CiAffectedTests";
+import { DellPrefetch } from "./DellPrefetch";
 import { DualExperienceSync } from "./DualExperienceSync";
+import { EditorMicrofrontends } from "./EditorMicrofrontends";
 import { HostTurboModules } from "./HostTurboModules";
 import { RenderProfile } from "./RenderProfile";
+import { ShareTownNativePlugins } from "./ShareTownNativePlugins";
 import { SparknightAggregation } from "./SparknightAggregation";
 import type { DiagramKey } from "./keys";
 import type { DiagramProps } from "./types";
@@ -19,4 +23,8 @@ export const diagrams: Record<DiagramKey, ComponentType<DiagramProps>> = {
   "sparknight-aggregation": SparknightAggregation,
   "beek-native-player": BeekNativePlayer,
   "cms-driven-angular": CmsDrivenAngular,
+  "sharetown-native-plugins": ShareTownNativePlugins,
+  "dell-prefetch": DellPrefetch,
+  "editor-microfrontends": EditorMicrofrontends,
+  "ci-affected-tests": CiAffectedTests,
 };

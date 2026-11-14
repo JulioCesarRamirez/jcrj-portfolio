@@ -1,0 +1,56 @@
+---
+title: "Dell: making an internal cloud platform's slowest pages faster"
+summary: "I profiled the slowest pages of an internal cloud platform and fixed them with predictive prefetching, leaner GraphQL queries and targeted memoization, for about 20% faster page loads."
+lede: "Slow API calls, excess re-renders and data fetched only on demand. I profiled, then fixed each one."
+category: "Performance"
+company: "Dell"
+facts:
+  - label: "Role"
+    value: "Senior full-stack engineer (contract)"
+  - label: "Dates"
+    value: "Oct 2022 – Jan 2023"
+  - label: "Employer"
+    value: "Dell"
+  - label: "Stack"
+    value: "React · TypeScript · GraphQL · Chrome DevTools"
+outcomeValue: "~20%"
+outcomeLabel: "faster page loads"
+metrics:
+  - value: "~20%"
+    label: "faster page loads"
+    note: ""
+    highlight: true
+  - value: "Predictive"
+    label: "prefetch + cache"
+    note: ""
+    highlight: false
+  - value: "Leaner"
+    label: "GraphQL queries"
+    note: ""
+    highlight: false
+  - value: "Shown"
+    label: "to product, not just engineers"
+    note: ""
+    highlight: false
+diagram: "dell-prefetch"
+published: false
+order: 7
+---
+
+## Context
+
+Dell's internal cloud platform let teams provision and manage Dell infrastructure, similar to Azure. It was already built. I built and maintained UI components and focused on the slowest pages. It was my first role in the US.
+
+## Diagnosis
+
+I profiled pages with Chrome DevTools and found three causes: slow API calls, excess re-renders, and data fetched only on demand that could be predicted from how users moved through the app.
+
+## Fixes
+
+- **Prefetch and cache.** Custom code that loaded the data for a user's likely next page and cached it.
+- **Leaner GraphQL queries.** New queries and resolvers shaped for prefetching, so each page asked for less.
+- **Fewer re-renders.** `React.memo` and `useCallback` on the hot paths.
+
+## Results
+
+About 20% faster page loads on the pages I worked on, measured before and after with the team's performance dashboard. I presented the before and after to product stakeholders in plain terms.

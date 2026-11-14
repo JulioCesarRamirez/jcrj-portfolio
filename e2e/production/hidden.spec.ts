@@ -2,6 +2,10 @@ import { expect, test } from "@playwright/test";
 
 const PUBLISHED = ["turbomodules-new-architecture", "ai-search-ui"];
 const UNPUBLISHED_SLUGS = [
+  "sharetown-native-plugins",
+  "dell-prefetch",
+  "editor-microfrontends",
+  "ci-affected-tests",
   "rn-cart-cold-start",
   "sparknight",
   "beek-native-player",

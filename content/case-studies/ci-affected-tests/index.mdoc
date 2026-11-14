@@ -1,0 +1,59 @@
+---
+title: "Cutting CI from hours to minutes"
+summary: "Our pipeline took 3–4 hours. We traced it to barrel imports loading whole folders into every test, switched to direct imports, and wrote a script that runs only the tests a change affects. CI dropped to 5–30 minutes."
+lede: "A slow pipeline, traced to import aliases. Direct imports and an affected-tests script brought it down from hours to minutes."
+category: "Developer experience"
+company: "Encora"
+facts:
+  - label: "Role"
+    value: "Tech lead, team of three"
+  - label: "Client"
+    value: "A SaaS client (via Encora)"
+  - label: "Employer"
+    value: "Encora"
+  - label: "Stack"
+    value: "TypeScript · GitHub Actions · shell scripting · Jira"
+outcomeValue: "3–4 h → 5–30 min"
+outcomeLabel: "CI duration"
+metrics:
+  - value: "3–4 h → 5–30 min"
+    label: "CI duration"
+    note: ""
+    highlight: true
+  - value: "Direct"
+    label: "imports instead of barrel imports"
+    note: ""
+    highlight: false
+  - value: "Affected"
+    label: "tests only run"
+    note: ""
+    highlight: false
+  - value: "Design ↔ ticket"
+    label: "internal tool"
+    note: ""
+    highlight: false
+diagram: "ci-affected-tests"
+published: false
+order: 9
+---
+
+## Problem
+
+The GitHub Actions pipeline was a bottleneck, sometimes taking 3 to 4 hours. My team reviewed each workflow and found the unit tests were the slowest step.
+
+## Root cause
+
+The codebase used path aliases that resolved to barrel index files. Each import pulled in an entire folder, so every unit test loaded far more code than it needed.
+
+## Fixes
+
+- **Direct imports.** Replaced the aliased barrel imports with imports of specific submodules, cutting what each test loaded.
+- **Affected-tests script.** A shell script detected which files a change touched and ran only the unit tests they affected, instead of the full suite.
+
+## Results
+
+CI dropped from about 3–4 hours to between 5 and 30 minutes.
+
+## Also built
+
+An internal tool that linked each design to its Jira tickets, so designers could see what each design was for and whom to contact when they changed it.

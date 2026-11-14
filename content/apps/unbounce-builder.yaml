@@ -10,7 +10,7 @@ stack:
   - "Node.js"
   - "Tailwind CSS"
 links: []
-caseStudy: null
+caseStudy: "editor-microfrontends"
 screenshots: []
 featured: false
 order: 10
