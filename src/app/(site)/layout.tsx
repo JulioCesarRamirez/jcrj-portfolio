@@ -4,7 +4,7 @@ import { DevTodoHighlight } from "@/components/DevTodoHighlight";
 import { DraftBanner } from "@/components/DraftBanner";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { getProfile, getVisibleCaseStudies } from "@/lib/content";
+import { getProfile, getResume, getVisibleCaseStudies } from "@/lib/content";
 import { siteUrl } from "@/lib/site";
 import { themeScript } from "@/lib/theme-script";
 import { isDraftMode } from "@/lib/visibility";
@@ -67,6 +67,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           name={profile.name}
           nav={nav}
           contactLabel={profile.contactLabel}
+          resume={getResume(profile, profile.sections.resumeLabel)}
         />
         <main id="main" className="flex-1">
           {children}

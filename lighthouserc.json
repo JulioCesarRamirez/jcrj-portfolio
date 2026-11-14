@@ -6,6 +6,8 @@
       "url": [
         "http://localhost:3200/",
         "http://localhost:3200/work",
+        "http://localhost:3200/work-with-me",
+        "http://localhost:3200/case-studies/turbomodules-new-architecture",
         "http://localhost:3200/how-this-site-is-built"
       ],
       "numberOfRuns": 3

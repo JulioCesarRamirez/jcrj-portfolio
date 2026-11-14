@@ -5,8 +5,11 @@ import { Container } from "@/components/Container";
 import { Hero } from "@/components/Hero";
 import { MetricStrip } from "@/components/MetricStrip";
 import { SectionHeader } from "@/components/SectionHeader";
+import { TextLink } from "@/components/TextLink";
+import { TitledGrid } from "@/components/TitledGrid";
 import { ShippedAt } from "@/components/ShippedAt";
 import {
+  getEngagement,
   getFeaturedApps,
   getProfile,
   getVisibleCaseStudies,
@@ -16,8 +19,9 @@ import {
 const FEATURED_CASE_STUDIES = 3;
 
 export default async function HomePage() {
-  const [profile, caseStudies, apps] = await Promise.all([
+  const [profile, engagement, caseStudies, apps] = await Promise.all([
     getProfile(),
+    getEngagement(),
     getVisibleCaseStudies(),
     getFeaturedApps(),
   ]);
@@ -39,6 +43,9 @@ export default async function HomePage() {
         primaryCta={primaryCta}
         resume={resume}
         locationLine={profile.locationLine}
+        lookingFor={
+          engagement.lookingFor.show ? engagement.lookingFor.text : ""
+        }
         currently={profile.currently}
       />
 
@@ -110,6 +117,42 @@ export default async function HomePage() {
                 </li>
               ))}
             </ul>
+          </Container>
+        </section>
+      ) : null}
+
+      {engagement.howIWork.items.length > 0 ? (
+        <section
+          className="border-divider border-t py-16"
+          aria-labelledby="how-i-work"
+        >
+          <Container>
+            <SectionHeader
+              id="how-i-work"
+              title={engagement.howIWork.heading}
+            />
+            <TitledGrid items={engagement.howIWork.items} />
+          </Container>
+        </section>
+      ) : null}
+
+      {engagement.teaser.heading ? (
+        <section
+          className="border-divider border-t py-16"
+          aria-labelledby="work-with-me-teaser"
+        >
+          <Container className="flex flex-wrap items-end justify-between gap-6">
+            <div className="flex max-w-[620px] flex-col gap-2.5">
+              <h2 id="work-with-me-teaser" className="h2 text-text">
+                {engagement.teaser.heading}
+              </h2>
+              <p className="text-muted text-base leading-[1.6]">
+                {engagement.teaser.text}
+              </p>
+            </div>
+            <TextLink href="/work-with-me">
+              {engagement.teaser.linkLabel}
+            </TextLink>
           </Container>
         </section>
       ) : null}

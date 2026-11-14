@@ -29,6 +29,8 @@ nav:
     href: "/case-studies"
   - label: "Experience"
     href: "/about#experience"
+  - label: "Work with me"
+    href: "/work-with-me"
   - label: "How it's built"
     href: "/how-this-site-is-built"
 contactLabel: "Contact"

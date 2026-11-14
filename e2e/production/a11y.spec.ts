@@ -4,6 +4,7 @@ import { expect, test } from "@playwright/test";
 const paths = [
   "/",
   "/work",
+  "/work-with-me",
   "/about",
   "/how-this-site-is-built",
   "/case-studies",

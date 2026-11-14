@@ -1,6 +1,7 @@
 import { ButtonLink } from "./ButtonLink";
 import { Container } from "./Container";
 import { CurrentlyCard } from "./CurrentlyCard";
+import { LookingFor } from "./LookingFor";
 import { ArrowRightIcon, DownloadIcon } from "./Icons";
 
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
   primaryCta: { label: string; href: string } | null;
   resume: { label: string; href: string } | null;
   locationLine: string;
+  lookingFor?: string;
   currently: React.ComponentProps<typeof CurrentlyCard>;
 }
 
@@ -20,12 +22,14 @@ export function Hero({
   primaryCta,
   resume,
   locationLine,
+  lookingFor = "",
   currently,
 }: Props) {
   return (
     <section className="pt-16 pb-12 sm:pt-28 sm:pb-[72px]">
       <Container className="grid items-end gap-12 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-16">
         <div className="flex flex-col gap-7">
+          <LookingFor text={lookingFor} />
           {eyebrow ? (
             <p className="text-muted flex items-center gap-2.5 font-mono text-xs tracking-[0.08em] uppercase">
               <span

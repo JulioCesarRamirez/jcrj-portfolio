@@ -108,3 +108,10 @@ export const getSiteInfo = cache(async () => {
   const info = await reader.singletons.siteInfo.read();
   return info ? applyVisibility(info) : null;
 });
+
+export const getEngagement = cache(async () => {
+  const engagement = await reader.singletons.engagement.read();
+  if (!engagement)
+    throw new Error("Missing content/engagement. Create it in /keystatic.");
+  return applyVisibility(engagement);
+});

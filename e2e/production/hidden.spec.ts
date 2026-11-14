@@ -15,6 +15,7 @@ const UNPUBLISHED = UNPUBLISHED_SLUGS[0];
 const PUBLIC_PATHS = [
   "/",
   "/work",
+  "/work-with-me",
   "/about",
   "/how-this-site-is-built",
   "/case-studies",

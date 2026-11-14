@@ -28,3 +28,21 @@ it("renders nav, contact link and theme toggle", () => {
     screen.getByRole("button", { name: "Toggle color theme" }),
   ).toBeInTheDocument();
 });
+
+it("shows the resume link only with a file", () => {
+  const props = { name: "Julio Ramirez", nav: [], contactLabel: "Contact" };
+  const { rerender } = render(<Header {...props} />);
+  expect(
+    screen.queryByRole("link", { name: "Download resume" }),
+  ).not.toBeInTheDocument();
+  rerender(
+    <Header
+      {...props}
+      resume={{ label: "Download resume", href: "/files/cv.pdf" }}
+    />,
+  );
+  expect(screen.getByRole("link", { name: "Download resume" })).toHaveAttribute(
+    "href",
+    "/files/cv.pdf",
+  );
+});

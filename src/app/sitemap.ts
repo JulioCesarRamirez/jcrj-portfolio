@@ -8,6 +8,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "",
     ...(studies.length > 0 ? ["/case-studies"] : []),
     "/work",
+    "/work-with-me",
     "/about",
     "/how-this-site-is-built",
     ...studies.map(({ slug }) => `/case-studies/${slug}`),

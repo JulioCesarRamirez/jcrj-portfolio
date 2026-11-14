@@ -1,0 +1,49 @@
+lookingFor:
+  show: true
+  text: "Open to senior React / React Native roles (remote or Chicago) and short contracts."
+teaser:
+  heading: "Need an app or a website built?"
+  text: "I take on short contracts: web apps, mobile apps and performance fixes, delivered in weekly increments."
+  linkLabel: "Work with me →"
+howIWork:
+  heading: "How I work"
+  items:
+    - title: "Performance first"
+      text: "Measure before and after, and show the results to non-engineers too."
+    - title: "Code review and standards"
+      text: "Agree on standards as a team, then enforce them with CI."
+    - title: "Mentoring"
+      text: "One-on-ones, real ownership, and growing engineers into leads."
+    - title: "Communication"
+      text: "Clear async updates, and comfortable working across time zones."
+workWithMe:
+  title: "Work with me"
+  intro: "I build and fix web and mobile apps for teams and founders. Here is what I can take on and how an engagement runs."
+  buildHeading: "What I build"
+  build:
+    - title: "Web apps"
+      text: "React and Next.js applications, from first release to scale."
+    - title: "Mobile apps"
+      text: "React Native apps for iOS and Android from one codebase."
+    - title: "Marketing sites and landing pages"
+      text: "Fast, accessible pages that load quickly and rank well."
+    - title: "Performance and code health"
+      text: "Profiling, fixes and tests for existing apps that have gotten slow or fragile."
+  stepsHeading: "How an engagement works"
+  steps:
+    - title: "Intro call"
+      text: "We talk through the problem, the users and the constraints."
+    - title: "Scope and estimate"
+      text: "A written scope with an estimate, before any work starts."
+    - title: "Build in weekly increments"
+      text: "Working software every week, with a demo so you can steer."
+    - title: "Launch"
+      text: "Release to production with monitoring in place."
+    - title: "Handover with docs"
+      text: "Documentation and a walkthrough so your team can own it."
+  proofHeading: "Relevant work"
+  proof:
+    - "turbomodules-new-architecture"
+    - "ai-search-ui"
+  ctaLabel: "Start a project"
+  ctaSubject: "Project inquiry"

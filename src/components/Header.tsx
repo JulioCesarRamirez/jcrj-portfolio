@@ -6,6 +6,7 @@ interface Props {
   name: string;
   nav: readonly { label: string; href: string }[];
   contactLabel: string;
+  resume?: { label: string; href: string } | null;
 }
 
 export function initials(name: string): string {
@@ -17,7 +18,7 @@ export function initials(name: string): string {
     .join("");
 }
 
-export function Header({ name, nav, contactLabel }: Props) {
+export function Header({ name, nav, contactLabel, resume = null }: Props) {
   return (
     <header className="border-divider bg-header sticky top-0 z-40 border-b backdrop-blur-[8px]">
       <Container className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 py-3 sm:py-4">
@@ -47,6 +48,15 @@ export function Header({ name, nav, contactLabel }: Props) {
               ))}
             </ul>
           </nav>
+          {resume ? (
+            <a
+              href={resume.href}
+              download=""
+              className="text-muted hover:text-text inline-flex min-h-11 items-center text-sm"
+            >
+              {resume.label}
+            </a>
+          ) : null}
           <Link
             href="/#contact"
             className="border-border-strong text-text hover:border-line2 hover:text-strong inline-flex min-h-11 items-center rounded-[10px] border px-4 text-sm font-medium"

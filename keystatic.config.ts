@@ -176,6 +176,96 @@ export default config({
         }),
       },
     }),
+    engagement: singleton({
+      label: "Hiring and clients",
+      path: "content/engagement",
+      schema: {
+        lookingFor: fields.object(
+          {
+            show: fields.checkbox({
+              label: "Show on Home",
+              defaultValue: true,
+            }),
+            text: fields.text({
+              label: "Text",
+              description: "For example “Open to senior React roles…”.",
+            }),
+          },
+          { label: "“Currently looking for” line" },
+        ),
+        teaser: fields.object(
+          {
+            heading: fields.text({ label: "Heading" }),
+            text: fields.text({ label: "Text", multiline: true }),
+            linkLabel: fields.text({ label: "Link label" }),
+          },
+          { label: "Home teaser for “Work with me”" },
+        ),
+        howIWork: fields.object(
+          {
+            heading: fields.text({ label: "Heading" }),
+            items: fields.array(
+              fields.object({
+                title: fields.text({
+                  label: "Title",
+                  validation: { isRequired: true },
+                }),
+                text: fields.text({ label: "Text", multiline: true }),
+              }),
+              { label: "Items", itemLabel: (p) => p.fields.title.value },
+            ),
+          },
+          { label: "“How I work” (Home)" },
+        ),
+        workWithMe: fields.object(
+          {
+            title: fields.text({ label: "Page title" }),
+            intro: fields.text({ label: "Intro", multiline: true }),
+            buildHeading: fields.text({ label: "“What I build” heading" }),
+            build: fields.array(
+              fields.object({
+                title: fields.text({
+                  label: "Title",
+                  validation: { isRequired: true },
+                }),
+                text: fields.text({ label: "Text", multiline: true }),
+              }),
+              { label: "What I build", itemLabel: (p) => p.fields.title.value },
+            ),
+            stepsHeading: fields.text({ label: "“How it works” heading" }),
+            steps: fields.array(
+              fields.object({
+                title: fields.text({
+                  label: "Title",
+                  validation: { isRequired: true },
+                }),
+                text: fields.text({ label: "Text", multiline: true }),
+              }),
+              { label: "Steps", itemLabel: (p) => p.fields.title.value },
+            ),
+            proofHeading: fields.text({ label: "Proof heading" }),
+            proof: fields.array(
+              fields.relationship({
+                label: "Case study",
+                collection: "caseStudies",
+              }),
+              {
+                label: "Proof (2–3 case studies)",
+                description:
+                  "Unpublished case studies are skipped on the live site.",
+                itemLabel: (p) => p.value ?? "Select a case study",
+              },
+            ),
+            ctaLabel: fields.text({ label: "Call-to-action label" }),
+            ctaSubject: fields.text({
+              label: "Email subject",
+              description: "Prefilled in the mail the button opens.",
+            }),
+          },
+          { label: "Work with me page" },
+        ),
+      },
+    }),
     siteInfo: singleton({
       label: "How this site is built",
       path: "content/site-info",
