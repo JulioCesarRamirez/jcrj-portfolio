@@ -5,7 +5,10 @@ import { join } from "node:path";
 import { gzipSync } from "node:zlib";
 
 const budgetKb = Number(process.env.BUDGET_KB ?? 141);
-const html = readFileSync(join(".next", "server", "app", "v", "chicago.html"), "utf8");
+const html = readFileSync(
+  join(".next", "server", "app", "v", "chicago.html"),
+  "utf8",
+);
 
 const scripts = [
   ...html.matchAll(/<script\b[^>]*\bsrc="\/_next\/([^"]+\.js)"[^>]*>/g),

@@ -7,9 +7,9 @@ const TARGET = "src/lib/generated/mexico-countries.json";
 
 const yaml = readFileSync(SOURCE, "utf8");
 const block = yaml.match(/^mexicoCountries:\n((?:[ \t]+-[^\n]*\n?)*)/m);
-const countries = [...(block?.[1] ?? "").matchAll(/-\s*"?([A-Za-z]{2})"?/g)].map(
-  ([, code]) => code.toUpperCase(),
-);
+const countries = [
+  ...(block?.[1] ?? "").matchAll(/-\s*"?([A-Za-z]{2})"?/g),
+].map(([, code]) => code.toUpperCase());
 if (countries.length === 0) {
   console.error(`gen-geo: no countries found in ${SOURCE}`);
   process.exit(1);
