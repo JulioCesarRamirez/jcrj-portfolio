@@ -9,7 +9,7 @@ export function ThemeToggle() {
       type="button"
       data-theme-toggle=""
       aria-label="Toggle color theme"
-      className="border-border-strong text-text hover:border-line2 inline-flex h-11 w-11 items-center justify-center rounded-[10px] border bg-transparent"
+      className="border-border-strong text-text hover:border-line2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[10px] border bg-transparent"
     >
       <svg
         aria-hidden="true"

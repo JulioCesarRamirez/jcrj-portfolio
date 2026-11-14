@@ -23,7 +23,7 @@ export function initials(name: string): string {
 }
 
 const linkClass =
-  "text-muted hover:text-text inline-flex min-h-11 min-w-11 items-center text-sm";
+  "text-muted hover:text-text min-h-11 min-w-11 items-center text-sm";
 
 export function Header({ name, nav, contactLabel, resume = null }: Props) {
   return (
@@ -45,7 +45,7 @@ export function Header({ name, nav, contactLabel, resume = null }: Props) {
             <ul className="flex items-center gap-x-6">
               {nav.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className={linkClass}>
+                  <Link href={item.href} className={`${linkClass} inline-flex`}>
                     {item.label}
                   </Link>
                 </li>
@@ -75,7 +75,10 @@ export function Header({ name, nav, contactLabel, resume = null }: Props) {
               <ul className="flex flex-col">
                 {nav.map((item) => (
                   <li key={item.href}>
-                    <Link href={item.href} className={`${linkClass} w-full`}>
+                    <Link
+                      href={item.href}
+                      className={`${linkClass} flex w-full`}
+                    >
                       {item.label}
                     </Link>
                   </li>
@@ -89,14 +92,14 @@ export function Header({ name, nav, contactLabel, resume = null }: Props) {
                       {...trackAttrs("resume_download", {
                         variant: resume.variant,
                       })}
-                      className={`${linkClass} w-full`}
+                      className={`${linkClass} flex w-full`}
                     >
                       {resume.label}
                     </a>
                   </li>
                 ) : null}
                 <li>
-                  <Link href="/#contact" className={`${linkClass} w-full`}>
+                  <Link href="/#contact" className={`${linkClass} flex w-full`}>
                     {contactLabel}
                   </Link>
                 </li>
