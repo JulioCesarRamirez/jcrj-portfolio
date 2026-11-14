@@ -28,7 +28,7 @@ export function Footer({
               <li key={link.url}>
                 <a
                   href={link.url}
-                  className="text-muted hover:text-text inline-flex min-h-11 items-center"
+                  className="text-muted hover:text-text inline-flex min-h-11 min-w-11 items-center"
                 >
                   {link.label}
                 </a>

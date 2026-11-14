@@ -89,16 +89,26 @@ export default async function CaseStudyPage({
 
       <Container className="pb-24">
         <div className="flex flex-wrap gap-12 lg:flex-nowrap">
-          <div className="w-full lg:w-[220px] lg:shrink-0">
+          <div className="w-full empty:hidden lg:w-[220px] lg:shrink-0">
             <OnThisPage label={sections.onThisPageLabel} headings={headings} />
           </div>
           <div className="max-w-[760px] min-w-0 flex-1">
-            <div className="bg-inset border-border mb-14 flex h-48 items-center justify-center rounded-[16px] border p-6">
-              <Diagram
-                diagramKey={entry.diagram}
-                className="h-full w-full max-w-md"
-              />
-            </div>
+            <figure className="mb-14">
+              <div
+                role="region"
+                aria-label="Diagram"
+                tabIndex={0}
+                className="bg-inset border-border overflow-x-auto rounded-[16px] border p-6"
+              >
+                <Diagram
+                  diagramKey={entry.diagram}
+                  className="mx-auto aspect-[12/5] w-full max-w-md min-w-[360px]"
+                />
+              </div>
+              <figcaption className="text-subtle pt-2 text-xs sm:hidden">
+                Scroll sideways to see the full diagram.
+              </figcaption>
+            </figure>
             <article className="case-body">{content}</article>
             <nav
               aria-label="Case study navigation"

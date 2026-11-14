@@ -8,10 +8,8 @@ it("links to each heading", () => {
       headings={[{ id: "context", title: "Context" }]}
     />,
   );
-  expect(screen.getByRole("link", { name: "Context" })).toHaveAttribute(
-    "href",
-    "#context",
-  );
+  for (const link of screen.getAllByRole("link", { name: "Context" }))
+    expect(link).toHaveAttribute("href", "#context");
 });
 
 it("renders nothing without headings", () => {
@@ -19,4 +17,16 @@ it("renders nothing without headings", () => {
     <OnThisPage label="On this page" headings={[]} />,
   );
   expect(container).toBeEmptyDOMElement();
+});
+
+it("offers a collapsible menu for small screens", () => {
+  render(
+    <OnThisPage
+      label="On this page"
+      headings={[{ id: "context", title: "Context" }]}
+    />,
+  );
+  expect(
+    screen.getByText("On this page", { selector: "summary" }),
+  ).toBeTruthy();
 });

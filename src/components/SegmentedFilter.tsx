@@ -32,7 +32,7 @@ export function SegmentedFilter<T extends string>({
             type="button"
             aria-pressed={active}
             onClick={() => onChange(option.value)}
-            className={`rounded-[8px] px-4 py-1.5 text-sm font-medium ${
+            className={`min-h-11 min-w-11 rounded-[8px] px-4 text-sm font-medium ${
               active ? "bg-fill text-text" : "text-muted hover:text-text"
             }`}
           >

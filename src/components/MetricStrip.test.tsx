@@ -27,3 +27,9 @@ it("renders nothing when empty", () => {
   const { container } = render(<MetricStrip label="Proof" items={[]} />);
   expect(container).toBeEmptyDOMElement();
 });
+
+it("puts four short values two across on small screens", () => {
+  const items = ["1", "2", "3", "4"].map((v) => ({ value: v, label: `l${v}` }));
+  render(<MetricStrip label="Proof" items={items} />);
+  expect(screen.getByRole("list")).toHaveClass("grid-cols-2");
+});

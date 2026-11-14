@@ -1,5 +1,7 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { Header, initials } from "./Header";
+
+jest.mock("next/navigation", () => ({ usePathname: () => "/" }));
 
 describe("initials", () => {
   it("takes the first letters of the first two words", () => {
@@ -16,11 +18,12 @@ it("renders nav, contact link and theme toggle", () => {
       contactLabel="Contact"
     />,
   );
-  expect(screen.getByRole("link", { name: "Work" })).toHaveAttribute(
+  const primary = screen.getByRole("navigation", { name: "Primary" });
+  expect(within(primary).getByRole("link", { name: "Work" })).toHaveAttribute(
     "href",
     "/work",
   );
-  expect(screen.getByRole("link", { name: "Contact" })).toHaveAttribute(
+  expect(screen.getAllByRole("link", { name: "Contact" })[0]).toHaveAttribute(
     "href",
     "/#contact",
   );
@@ -33,16 +36,14 @@ it("shows the resume link only with a file", () => {
   const props = { name: "Julio Ramirez", nav: [], contactLabel: "Contact" };
   const { rerender } = render(<Header {...props} />);
   expect(
-    screen.queryByRole("link", { name: "Download resume" }),
-  ).not.toBeInTheDocument();
+    screen.queryAllByRole("link", { name: "Download resume" }),
+  ).toHaveLength(0);
   rerender(
     <Header
       {...props}
       resume={{ label: "Download resume", href: "/files/cv.pdf" }}
     />,
   );
-  expect(screen.getByRole("link", { name: "Download resume" })).toHaveAttribute(
-    "href",
-    "/files/cv.pdf",
-  );
+  for (const link of screen.getAllByRole("link", { name: "Download resume" }))
+    expect(link).toHaveAttribute("href", "/files/cv.pdf");
 });

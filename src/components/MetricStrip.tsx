@@ -22,19 +22,25 @@ interface Props {
 /** Bordered strip of big mono numbers. One accent value at most. */
 export function MetricStrip({ label, items }: Props) {
   if (items.length === 0) return null;
+  // Short values sit two across on phones; long ones stay one per row.
+  const compact = items.length === 4 && items.every((i) => i.value.length <= 6);
   return (
     <section aria-label={label}>
       <ul
-        className={`border-border bg-border grid gap-px overflow-hidden rounded-[16px] border ${COLUMNS[Math.min(items.length, 4)]}`}
+        className={`border-border bg-border grid gap-px overflow-hidden rounded-[16px] border ${compact ? "grid-cols-2" : ""} ${COLUMNS[Math.min(items.length, 4)]}`}
       >
         {items.map((item) => (
           <li
             key={`${item.value}-${item.label}`}
-            className="bg-surface-alt flex flex-col gap-2 px-6 py-7"
+            className="bg-surface-alt flex min-w-0 flex-col gap-2 px-4 py-6 sm:px-6 sm:py-7"
           >
             <span
               className={`font-mono leading-none font-medium tracking-[-0.03em] ${
-                item.value.length > 8 ? "text-[30px]" : "text-[40px]"
+                item.value.length > 8
+                  ? "text-[26px] sm:text-[30px]"
+                  : compact
+                    ? "text-[28px] sm:text-[40px]"
+                    : "text-[40px]"
               } ${item.highlight ? "text-accent" : "text-text"}`}
             >
               {item.value}
