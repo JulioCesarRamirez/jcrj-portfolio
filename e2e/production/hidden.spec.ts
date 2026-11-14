@@ -1,16 +1,17 @@
 import { expect, test } from "@playwright/test";
 
-const PUBLISHED = ["turbomodules-new-architecture", "ai-search-ui"];
-const UNPUBLISHED_SLUGS = [
+const PUBLISHED = [
+  "turbomodules-new-architecture",
+  "ai-search-ui",
+  "sparknight",
+  "beek-native-player",
+  "cms-driven-angular",
   "sharetown-native-plugins",
   "dell-prefetch",
   "editor-microfrontends",
   "ci-affected-tests",
-  "rn-cart-cold-start",
-  "sparknight",
-  "beek-native-player",
-  "cms-driven-angular",
 ];
+const UNPUBLISHED_SLUGS = ["rn-cart-cold-start"];
 const UNPUBLISHED = UNPUBLISHED_SLUGS[0];
 const PUBLIC_PATHS = [
   "/",

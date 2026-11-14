@@ -43,7 +43,8 @@ workWithMe:
       text: "Documentation and a walkthrough so your team can own it."
   proofHeading: "Relevant work"
   proof:
-    - "turbomodules-new-architecture"
-    - "ai-search-ui"
+    - "sparknight"
+    - "sharetown-native-plugins"
+    - "dell-prefetch"
   ctaLabel: "Start a project"
   ctaSubject: "Project inquiry"

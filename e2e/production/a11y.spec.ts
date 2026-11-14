@@ -10,6 +10,13 @@ const paths = [
   "/case-studies",
   "/case-studies/turbomodules-new-architecture",
   "/case-studies/ai-search-ui",
+  "/case-studies/sparknight",
+  "/case-studies/beek-native-player",
+  "/case-studies/cms-driven-angular",
+  "/case-studies/sharetown-native-plugins",
+  "/case-studies/dell-prefetch",
+  "/case-studies/editor-microfrontends",
+  "/case-studies/ci-affected-tests",
 ];
 const schemes = ["light", "dark"] as const;
 

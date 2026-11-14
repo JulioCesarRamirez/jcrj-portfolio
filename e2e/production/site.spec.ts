@@ -100,7 +100,7 @@ test("work-with-me offers a prefilled mailto and shows published proof only", as
   const cta = page.getByRole("link", { name: "Start a project" }).first();
   await expect(cta).toHaveAttribute("href", /^mailto:.+\?subject=/);
   const proof = page.getByRole("region", { name: "Relevant work" });
-  await expect(proof.getByRole("article")).toHaveCount(2);
+  await expect(proof.getByRole("article")).toHaveCount(3);
 });
 
 test("home shows looking-for line, how I work and a work-with-me link", async ({

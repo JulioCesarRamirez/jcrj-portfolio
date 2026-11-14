@@ -34,7 +34,7 @@ test.describe("next dev renders drafts for review", () => {
   }) => {
     await page.goto("/case-studies");
     await expect(page.getByRole("article")).toHaveCount(10);
-    await expect(page.getByText("Draft", { exact: true })).toHaveCount(8);
+    await expect(page.getByText("Draft", { exact: true })).toHaveCount(1);
   });
 
   test("a draft case study renders in full with its anchor nav", async ({
