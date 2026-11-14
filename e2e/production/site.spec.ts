@@ -7,7 +7,26 @@ test("pages load without console errors", async ({ page }) => {
   });
   page.on("pageerror", (err) => errors.push(err.message));
 
-  for (const path of ["/", "/work", "/about", "/how-this-site-is-built"]) {
+  const studies = [
+    "turbomodules-new-architecture",
+    "ai-search-ui",
+    "sparknight",
+    "beek-native-player",
+    "cms-driven-angular",
+    "sharetown-native-plugins",
+    "dell-prefetch",
+    "editor-microfrontends",
+    "ci-affected-tests",
+  ].map((slug) => `/case-studies/${slug}`);
+  for (const path of [
+    "/",
+    "/work",
+    "/work-with-me",
+    "/about",
+    "/how-this-site-is-built",
+    "/case-studies",
+    ...studies,
+  ]) {
     await page.goto(path);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   }

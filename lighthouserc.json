@@ -8,20 +8,59 @@
         "http://localhost:3200/work",
         "http://localhost:3200/work-with-me",
         "http://localhost:3200/case-studies/turbomodules-new-architecture",
-        "http://localhost:3200/how-this-site-is-built"
+        "http://localhost:3200/how-this-site-is-built",
+        "http://localhost:3200/case-studies/sparknight",
+        "http://localhost:3200/case-studies/beek-native-player",
+        "http://localhost:3200/case-studies/cms-driven-angular",
+        "http://localhost:3200/case-studies/sharetown-native-plugins",
+        "http://localhost:3200/case-studies/dell-prefetch",
+        "http://localhost:3200/case-studies/editor-microfrontends",
+        "http://localhost:3200/case-studies/ci-affected-tests"
       ],
       "numberOfRuns": 3
     },
     "assert": {
       "assertions": {
-        "categories:performance": ["error", { "minScore": 0.95 }],
-        "categories:accessibility": ["error", { "minScore": 0.95 }],
-        "categories:best-practices": ["error", { "minScore": 0.95 }],
-        "categories:seo": ["error", { "minScore": 0.95 }],
-        "largest-contentful-paint": ["error", { "maxNumericValue": 2500 }],
-        "cumulative-layout-shift": ["error", { "maxNumericValue": 0.1 }]
+        "categories:performance": [
+          "error",
+          {
+            "minScore": 0.95
+          }
+        ],
+        "categories:accessibility": [
+          "error",
+          {
+            "minScore": 0.95
+          }
+        ],
+        "categories:best-practices": [
+          "error",
+          {
+            "minScore": 0.95
+          }
+        ],
+        "categories:seo": [
+          "error",
+          {
+            "minScore": 0.95
+          }
+        ],
+        "largest-contentful-paint": [
+          "error",
+          {
+            "maxNumericValue": 2500
+          }
+        ],
+        "cumulative-layout-shift": [
+          "error",
+          {
+            "maxNumericValue": 0.1
+          }
+        ]
       }
     },
-    "upload": { "target": "temporary-public-storage" }
+    "upload": {
+      "target": "temporary-public-storage"
+    }
   }
 }

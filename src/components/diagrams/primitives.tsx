@@ -83,8 +83,8 @@ export function Arrow({
   const dy = Math.sign(y2 - y1);
   const head =
     dx !== 0
-      ? `M${x2 - 4 * dx} ${y2 - 3}l${4 * dx} 3-${4 * dx} 3`
-      : `M${x2 - 3} ${y2 - 4 * dy}l3 ${4 * dy} 3-${4 * dy}`;
+      ? `M${x2 - 4 * dx} ${y2 - 3}l${4 * dx} 3l${-4 * dx} 3`
+      : `M${x2 - 3} ${y2 - 4 * dy}l3 ${4 * dy}l3 ${-4 * dy}`;
   return (
     <g stroke="var(--line)">
       <path d={`M${x1} ${y1}L${x2} ${y2}`} />

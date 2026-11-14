@@ -17,3 +17,13 @@ describe("diagram registry", () => {
     expect(container).toBeEmptyDOMElement();
   });
 });
+
+describe("diagram paths", () => {
+  it.each(DIAGRAM_KEYS)("%s has only well-formed path data", (key) => {
+    const { container } = render(<Diagram diagramKey={key} />);
+    for (const path of container.querySelectorAll("path")) {
+      // Two signs in a row (for example "3--4") make the whole path invalid.
+      expect(path.getAttribute("d")).not.toMatch(/[-+]{2}/);
+    }
+  });
+});
